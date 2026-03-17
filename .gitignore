@@ -1,0 +1,196 @@
+*.log
+*.class
+*.jar
+*.bin
+*.lock
+
+jalo/
+licenses/
+idea-module-files/
+README
+
+
+#####################
+#License
+####################
+
+hybris/config/**
+!hybris/config/local.properties
+!hybris/config/localextensions.xml
+
+# Directories #
+/build/
+target/
+ 
+# OS Files #
+.DS_Store
+.idea
+*.idea
+.classpath
+idea-module-files/*
+idea-module-files/
+
+
+ 
+*.class
+ 
+# Package Files #
+*.war
+*.ear
+*.db
+ 
+ 
+######################
+# Windows
+######################
+ 
+# Windows image file caches
+Thumbs.db 
+ 
+# Folder config file
+Desktop.ini
+ 
+ 
+######################
+# OSX
+######################
+ 
+.DS_Store
+.svn
+ 
+# Thumbnails
+._*
+ 
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+######################
+# Linux
+######################
+ 
+ 
+######################
+# Eclipse
+######################
+*.project
+*.pydevproject
+.metadata
+tmp/**
+tmp/**/*
+**/eclipsebin/**
+**/eclipsebin_backoffice/**
+*.tmp
+*.bak
+*.swp
+*~.nib
+.settings/
+**/.settings/*
+.loadpath
+/src/main/resources/rebel.xml
+.lastupdate
+*/lib/*
+
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
+
+# Ignoring .svn folder
+.svn/*
+
+# Git files created by Eclipse
+**/.gitginore
+
+*JRebel
+*rebel.xml
+*.vscode
+ 
+ 
+######################
+# Hybris 
+######################
+
+# Files
+**/bin/**/build.xml
+SIGNATURE.SMF
+extensioninfo.xsd
+hmc.xsd
+platformhome.properties
+items.xsd
+beans.xsd
+**/*-testclasses.xml
+**/*-webtestclasses.xml
+.pmd
+.spring[Bb]eans
+
+# Folders
+# Folders - Hybris Specific
+data/
+log/
+temp/
+roles/
+.metadata/
+hybris/bin/ext-*/
+**/hybris/bin/platform/
+**/RemoteSystemsTempFiles/
+**/.externalToolBuilders/
+build-tools/
+c4c-integration/
+hybris-Mobile-Apps-SDK/
+hybris-sbg/
+
+# Folders - Automatically Generated
+**/backoffice/aguiabrancabackoffice_bof.jar
+**/classes/
+**/gensrc/
+**/hmc/bin/	
+**/hmc/classes
+**/web/addonsrc/
+**/web/commonwebsrc/
+**/web/testclasses/
+**/web/webroot/_ui/**/*.js
+**/web/webroot/_ui/**/*.map
+**/web/webroot/_ui/**/addons
+**/web/webroot/_ui/**/common/bootstrap
+**/web/webroot/_ui/**/css
+**/web/webroot/_ui/**/fonts
+
+**/web/webroot/_ui/shared/js/generatedVariables.js
+**/web/webroot/cmscockpit/
+**/web/webroot/cockpit/
+**/web/webroot/productcockpit/
+**/web/webroot/WEB-INF/addons/
+**/web/webroot/WEB-INF/classes/
+**/web/webroot/WEB-INF/_ui-src/addons/
+**/web/webroot/WEB-INF/messages/addons/
+**/web/webroot/WEB-INF/tags/addons/
+**/web/webroot/WEB-INF/tld/addons/
+**/web/webroot/WEB-INF/views/addons/
+**/web/addontestsrc/
+
+installer/.gradle
+
+**/hybris/bin/modules/
+installer/
+
+core-customize/hybris/config/customize/
+core-customize/hybris/config/languages/
+core-customize/hybris/config/licence/
+core-customize/hybris/config/readme.txt
+core-customize/hybris/config/solr/
+core-customize/hybris/config/tomcat/
+core-customize/hybris/bin/custom/b2ctelcospastore
+
+!jstl-impl-1.2.jar
+!json-taglib-0.4.1.jar
+
+core-customize/hybris/config/hybris4intellij.properties
+

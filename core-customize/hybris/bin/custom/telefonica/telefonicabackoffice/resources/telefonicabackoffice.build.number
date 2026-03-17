@@ -1,0 +1,11 @@
+#Ant properties
+#Tue Sep 02 09:27:52 CEST 2025
+builddate=20250902 0919
+description=telefonicabackoffice
+group.id=de.hybris.platform
+module.name=platform-module
+name=telefonicabackoffice
+releasedate=20250604 0846
+vendor=hybris
+version=2211.44
+version.api=2211
