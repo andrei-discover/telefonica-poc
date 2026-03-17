@@ -79,5 +79,6 @@
         <extension name="telefonicafulfilmentprocess" />
         <extension name="telefonicainitialdata" />
         <extension name="telefonicatest" />
+        <extension name="telefonicaocc" />
     </extensions>
 </hybrisconfig>
