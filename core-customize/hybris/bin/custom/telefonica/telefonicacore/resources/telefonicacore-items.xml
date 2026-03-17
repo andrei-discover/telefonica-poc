@@ -25,6 +25,11 @@
             <value code="WHITE"/>
             <value code="YELLOW"/>
         </enumtype>
+        <enumtype code="QuestionStatus" autocreate="true" generate="true">
+            <value code="PENDING"/>
+            <value code="APPROVED"/>
+            <value code="REJECTED"/>
+        </enumtype>
     </enumtypes>
 
     <itemtypes>
@@ -99,6 +104,34 @@
                         <description>Color of the product.</description>
                         <modifiers/>
                         <persistence type="property"/>
+                    </attribute>
+                </attributes>
+            </itemtype>
+        </typegroup>
+
+        <typegroup name="Perguntas e Respostas">
+            <itemtype code="ProductQuestion" extends="GenericItem" autocreate="true" generate="true">
+                <deployment table="ProductQuestion" typecode="15000"/>
+                <attributes>
+                    <attribute qualifier="product" type="Product">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                    <attribute qualifier="customer" type="Customer">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                    <attribute qualifier="question" type="localized:java.lang.String">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                    <attribute qualifier="answer" type="localized:java.lang.String">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="status" type="QuestionStatus">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
                     </attribute>
                 </attributes>
             </itemtype>

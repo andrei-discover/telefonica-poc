@@ -539,4 +539,16 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.DefaultProductQuestionDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<bean id="productQuestionService"
+		  class="br.com.telefonica.core.service.impl.DefaultProductQuestionService">
+		<property name="modelService" ref="modelService"/>
+		<property name="productService" ref="productService"/>
+		<property name="userService" ref="userService"/>
+		<property name="productQuestionDao" ref="productQuestionDao"/>
+	</bean>
 </beans>

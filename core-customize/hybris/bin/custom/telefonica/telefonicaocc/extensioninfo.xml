@@ -11,6 +11,7 @@
                 		
         
         <requires-extension name="commercewebservices"/>
+        <requires-extension name="telefonicafacades"/>
                 		
         
         <coremodule generated="true" manager="br.com.telefonica.jalo.TelefonicaoccManager" packageroot="br.com.telefonica"/>
