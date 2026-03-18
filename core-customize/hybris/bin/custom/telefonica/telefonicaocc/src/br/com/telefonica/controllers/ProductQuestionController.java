@@ -3,20 +3,19 @@ package br.com.telefonica.controllers;
 import br.com.telefonica.facades.productquestion.ProductQuestionFacade;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
-
-//import io.swagger.annotations.Api;
-//import io.swagger.annotations.ApiOperation;
-//import io.swagger.annotations.ApiParam;
-
-import org.springframework.security.access.prepost.PreAuthorize;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+/**
+ * OCC Web Services Controller para Perguntas de Produtos (Product Questions)
+ */
 @RestController
 @RequestMapping(value = "/{baseSiteId}/productquestions")
-//@Api(tags = "Product Questions")
+@Tag(name = "Product Questions", description = "Gerencia perguntas relacionadas a produtos.")
 public class ProductQuestionController {
 
     @Resource(name = "productQuestionFacade")
@@ -26,16 +25,18 @@ public class ProductQuestionController {
      * Cria uma pergunta para um produto.
      * Apenas usuários autenticados com ROLE_CUSTOMER podem acessar este endpoint.
      *
-     * @param baseSiteId código do site atual (padrão OCC, usado no contexto do site)
+     * @param baseSiteId código do site atual (padrão OCC)
      * @param requestDTO objeto com dados da pergunta
      * @return ProductQuestionResponseDTO criado
      */
     @PostMapping
-    //@ApiOperation(value = "Create a question for a product")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @Operation(
+            operationId = "createProductQuestion",
+            summary = "Cria uma pergunta para um produto",
+            description = "Permite que um usuário autenticado crie uma pergunta para um produto."
+    )
     public ProductQuestionResponseDTO createQuestion(
             @PathVariable final String baseSiteId,
-            //@ApiParam(value = "Question request object", required = true)
             @RequestBody @Valid final ProductQuestionRequestDTO requestDTO) {
 
         return productQuestionFacade.createQuestion(baseSiteId, requestDTO);
