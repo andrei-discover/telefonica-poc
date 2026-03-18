@@ -1,38 +1,19 @@
 package br.com.telefonica.facades.productquestion.populator;
 
 import br.com.telefonica.core.model.ProductQuestionModel;
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
+import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import de.hybris.platform.converters.Populator;
 
-public class ProductQuestionPopulator implements Populator<ProductQuestionModel, ProductQuestionResponseDTO>
-{
+public class ProductQuestionPopulator
+        implements Populator<ProductQuestionModel, ProductQuestionData> {
 
     @Override
-    public void populate(ProductQuestionModel source, ProductQuestionResponseDTO target)
-    {
-        if (source.getProduct() != null)
-        {
-            target.setProductCode(source.getProduct().getCode());
-        }
+    public void populate(ProductQuestionModel source, ProductQuestionData target) {
 
+        target.setProductCode(source.getProduct().getCode());
         target.setQuestion(source.getQuestion());
-
-        if (source.getStatus() != null)
-        {
-            target.setStatus(source.getStatus().getCode());
-        }
-
-        if (source.getCustomer() != null)
-        {
-            target.setAuthor(source.getCustomer().getUid());
-        }
-
-        if (source.getCreationtime() != null)
-        {
-            target.setCreatedDate(source.getCreationtime()
-                    .toInstant()
-                    .atZone(java.time.ZoneId.systemDefault())
-                    .toLocalDateTime());
-        }
+        target.setStatus(source.getStatus().name());
+        target.setAuthor(source.getCustomer().getUid());
+        target.setCreatedDate(source.getCreationtime());
     }
 }

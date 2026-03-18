@@ -6,20 +6,12 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 public class DefaultProductQuestionDao implements ProductQuestionDao {
 
     private FlexibleSearchService flexibleSearchService;
 
-    /**
-     * Retorna todas as perguntas de um produto identificado pelo seu código.
-     * Ordena por data de criação, da mais recente para a mais antiga.
-     *
-     * @param productCode código do produto
-     * @return lista de ProductQuestionModel associadas ao produto
-     */
     @Override
     public List<ProductQuestionModel> findQuestionsByProductCode(final String productCode) {
         final String query =

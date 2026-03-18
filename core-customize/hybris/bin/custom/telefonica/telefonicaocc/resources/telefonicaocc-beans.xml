@@ -17,4 +17,25 @@
 	</bean>
 	-->
 
+	<bean class="br.com.telefonica.facades.productquestion.data.ProductQuestionData">
+		<property name="productCode" type="String"/>
+		<property name="question" type="String"/>
+		<property name="status" type="String"/>
+		<property name="author" type="String"/>
+		<property name="createdDate" type="java.util.Date"/>
+	</bean>
+
+	<bean class="br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO">
+		<property name="productCode" type="String"/>
+		<property name="question" type="String"/>
+	</bean>
+
+	<bean class="br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO">
+		<property name="productCode" type="String"/>
+		<property name="question" type="String"/>
+		<property name="status" type="String"/>
+		<property name="author" type="String"/>
+		<property name="createdDate" type="java.util.Date"/>
+	</bean>
+
 </beans>

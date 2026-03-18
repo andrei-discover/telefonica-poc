@@ -24,10 +24,6 @@ public class DefaultProductQuestionService implements ProductQuestionService
     @Override
     public ProductQuestionModel createQuestion(final String productCode, final String question) {
 
-        if (question == null || question.trim().isEmpty()) {
-            throw new IllegalArgumentException("A pergunta não pode estar vazia.");
-        }
-
         final UserModel currentUser = userService.getCurrentUser();
         if (!(currentUser instanceof CustomerModel)) {
             throw new IllegalStateException("Usuário atual não é um cliente autenticado.");

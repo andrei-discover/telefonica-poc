@@ -1,16 +1,12 @@
 package br.com.telefonica.facades.productquestion;
 
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
+import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
 
-public interface ProductQuestionFacade {
+import java.util.List;
 
-    /**
-     * Cria uma pergunta para um produto.
-     * A pergunta nasce com status PENDING e deve ser moderada antes da publicação.
-     *
-     * @param requestDTO DTO contendo o código do produto e o texto da pergunta
-     * @return DTO com os dados da pergunta criada, incluindo status e autor
-     */
-    ProductQuestionResponseDTO createQuestion(String baseSiteId, ProductQuestionRequestDTO requestDTO);
+public interface ProductQuestionFacade
+{
+    ProductQuestionData createQuestion(String baseSiteId, ProductQuestionData requestDTO);
+    public List<ProductQuestionData> getQuestionsForProduct(String baseSiteId, String productCode);
 }

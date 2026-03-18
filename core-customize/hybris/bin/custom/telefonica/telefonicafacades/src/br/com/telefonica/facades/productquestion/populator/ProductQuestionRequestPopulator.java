@@ -1,0 +1,18 @@
+package br.com.telefonica.facades.productquestion.populator;
+
+import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
+import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
+import de.hybris.platform.converters.Populator;
+
+public class ProductQuestionRequestPopulator implements Populator<ProductQuestionRequestDTO, ProductQuestionData> {
+
+    @Override
+    public void populate(ProductQuestionRequestDTO source, ProductQuestionData target) {
+        if (source == null || target == null) {
+            return;
+        }
+
+        target.setProductCode(source.getProductCode());
+        target.setQuestion(source.getQuestion());
+    }
+}

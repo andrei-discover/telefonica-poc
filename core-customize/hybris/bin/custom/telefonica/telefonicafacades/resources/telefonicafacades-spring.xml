@@ -183,18 +183,56 @@
 
 	<bean id="genderData" class="br.com.telefonica.facades.product.data.GenderData" scope="prototype"/>
 
+	<alias name="productQuestionFacade" alias="defaultProductQuestionFacade"/>
 	<bean id="productQuestionFacade"  class="br.com.telefonica.facades.productquestion.impl.DefaultProductQuestionFacade">
 		<property name="productQuestionService" ref="productQuestionService"/>
 		<property name="productQuestionConverter" ref="productQuestionConverter"/>
 	</bean>
 
-	<bean id="productQuestionPopulator"  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionPopulator"/>
+	<alias name="productQuestionPopulator" alias="defaultProductQuestionPopulator"/>
+	<bean id="productQuestionPopulator"
+		  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionPopulator"/>
 
-	<bean id="productQuestionConverter"  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
-		<property name="targetClass"     value="br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO"/>
+	<alias name="productQuestionConverter" alias="defaultProductQuestionConverter"/>
+	<bean id="productQuestionConverter"
+		  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
+		<property name="targetClass"
+				  value="br.com.telefonica.facades.productquestion.data.ProductQuestionData"/>
 		<property name="populators">
 			<list>
 				<ref bean="productQuestionPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="productQuestionRequestPopulator" alias="defaultProductQuestionRequestPopulator"/>
+	<bean id="productQuestionRequestPopulator"
+		  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionRequestPopulator"/>
+
+	<alias name="productQuestionRequestConverter" alias="defaultProductQuestionRequestConverter"/>
+	<bean id="productQuestionRequestConverter"
+		  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
+		<property name="targetClass"
+				  value="br.com.telefonica.facades.productquestion.data.ProductQuestionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="productQuestionRequestPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="productQuestionResponsePopulator" alias="defaultProductQuestionResponsePopulator"/>
+	<bean id="productQuestionResponsePopulator"
+		  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionResponsePopulator"/>
+
+	<alias name="productQuestionResponseConverter" alias="defaultProductQuestionResponseConverter"/>
+	<bean id="productQuestionResponseConverter"
+		  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
+		<property name="targetClass"
+				  value="br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO"/>
+		<property name="populators">
+			<list>
+				<ref bean="productQuestionResponsePopulator"/>
 			</list>
 		</property>
 	</bean>

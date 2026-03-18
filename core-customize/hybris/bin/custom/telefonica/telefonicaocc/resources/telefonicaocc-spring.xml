@@ -15,4 +15,5 @@
 
     <context:annotation-config/>
 
+	<bean id="productQuestionValidator" class="br.com.telefonica.validators.ProductQuestionValidator"/>
 </beans>
