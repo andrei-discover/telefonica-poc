@@ -14,8 +14,7 @@ public class TelefonicaReviewVoteValidator implements Validator {
 	@Override
 	public void validate(final Object target, final Errors errors) {
 		if (StringUtils.isBlank((String) target)) {
-			errors.reject("review.vote.reviewid.empty",
-				"Review identifier must not be empty.");
+			errors.reject("review.vote.reviewid.empty");
 		}
 	}
 }

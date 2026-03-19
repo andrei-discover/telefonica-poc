@@ -28,7 +28,8 @@
     </bean>
 
     <bean id="telefonicaReviewPopulator" class="br.com.telefonica.facades.populators.TelefonicaReviewPopulator">
-        <property name="productConverter" ref="productConverter"/>
+        <property name="telefonicaReviewVoteService" ref="defaultTelefonicaReviewVoteService"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
 	<bean id="carouselProductConverter" parent="defaultProductConverter">

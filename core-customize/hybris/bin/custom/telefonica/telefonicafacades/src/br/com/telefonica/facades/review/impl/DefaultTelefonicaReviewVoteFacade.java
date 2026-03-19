@@ -24,7 +24,6 @@ public class DefaultTelefonicaReviewVoteFacade implements TelefonicaReviewVoteFa
 	@Override
 	public ReviewVoteData getVoteData(final String reviewPk) {
 		final ReviewVoteData reviewVoteData = new ReviewVoteData();
-		reviewVoteData.setReviewPk(reviewPk);
 		reviewVoteData.setVoted(hasCurrentUserVoted(reviewPk));
 		reviewVoteData.setTotalVotes(getVoteCount(reviewPk));
 		return reviewVoteData;

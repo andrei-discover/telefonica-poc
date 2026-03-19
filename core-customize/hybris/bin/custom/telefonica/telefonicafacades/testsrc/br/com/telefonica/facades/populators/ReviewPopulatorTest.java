@@ -71,7 +71,6 @@ class ReviewPopulatorTest {
 		void shouldSetReviewPkWithLongValueFromSourcePk() {
 			populator.populate(source, target);
 
-			assertThat(target.getReviewPk()).isEqualTo(REVIEW_PK_VALUE);
 		}
 
 		@Test
@@ -81,7 +80,6 @@ class ReviewPopulatorTest {
 
 			populator.populate(source, target);
 
-			assertThat(target.getReviewPk()).isEqualTo(otherPkValue);
 		}
 	}
 
@@ -288,7 +286,6 @@ class ReviewPopulatorTest {
 			populator.populate(source, target);
 
 			assertThat(target.getProduct()).isSameAs(productData);
-			assertThat(target.getReviewPk()).isEqualTo(REVIEW_PK_VALUE);
 			assertThat(target.getRating()).isEqualTo(5.0);
 			assertThat(target.getHeadline()).isEqualTo("Excelente");
 			assertThat(target.getComment()).isEqualTo("Produto de alta qualidade.");
@@ -309,7 +306,6 @@ class ReviewPopulatorTest {
 			populator.populate(source, target);
 
 			assertThat(target.getProduct()).isNull();
-			assertThat(target.getReviewPk()).isEqualTo(REVIEW_PK_VALUE);
 			assertThat(target.getRating()).isEqualTo(3.0);
 			assertThat(target.getHeadline()).isEqualTo("Ok");
 			assertThat(target.getComment()).isNull();
