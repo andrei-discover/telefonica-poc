@@ -12,6 +12,7 @@
                 		
         
         <requires-extension name="acceleratorcms"/>
+        <requires-extension name="b2ctelcoservices"/>
                 		
         
         <coremodule generated="true" manager="br.com.telefonica.core.jalo.TelefonicaCoreManager" packageroot="br.com.telefonica.core"/>

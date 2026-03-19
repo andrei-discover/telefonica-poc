@@ -12,4 +12,16 @@
 		<property name="code" type="String"/>
 		<property name="name" type="String"/>
 	</bean>
+
+    <bean class="de.hybris.platform.commercefacades.product.data.ReviewData">
+        <property name="verifiedPurchase" type="Boolean"/>
+        <property name="approvalStatus" type= "String"/>
+        <property name="reviewPk" type= "String"/>
+    </bean>
+
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.product.ReviewWsDTO">
+        <property name="verifiedPurchase" type="Boolean"/>
+        <property name="approvalStatus" type= "String"/>
+    </bean>
+
 </beans>

@@ -137,5 +137,26 @@
             </itemtype>
         </typegroup>
 
+        <typegroup name="CustomerReview">
+            <itemtype code="CustomerReview" autocreate="false" generate="false">
+                <attributes>
+                    <attribute qualifier="verifiedPurchase" type="java.lang.Boolean">
+                        <defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+                        <description>Indicates whether the customer purchased the product being reviewed.</description>
+                        <persistence type="property"/>
+                    </attribute>
+
+                    <attribute qualifier="moderationNotes" type="java.lang.String">
+                        <persistence type="property">
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                        <description>Notes added by the product review moderator.</description>
+                    </attribute>
+                </attributes>
+            </itemtype>
+        </typegroup>
+
     </itemtypes>
 </items>

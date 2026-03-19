@@ -12,8 +12,8 @@
                 		
         
         <requires-extension name="acceleratorfacades"/>
-                		
-        
+
+        <requires-extension name='b2ctelcofacades' />
         <requires-extension name="telefonicacore"/>
                 		
         

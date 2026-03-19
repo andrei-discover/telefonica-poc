@@ -21,7 +21,16 @@
 		<property name="productConverter" ref="carouselProductConverter"/>
 		<property name="cartService" ref="cartService"/>
 	</bean>
-	
+
+    <bean parent="modifyPopulatorList">
+        <property name="list" ref="customerReviewConverter"/>
+        <property name="add"  ref="telefonicaReviewPopulator"/>
+    </bean>
+
+    <bean id="telefonicaReviewPopulator" class="br.com.telefonica.facades.populators.ReviewPopulator">
+        <property name="productConverter" ref="productConverter"/>
+    </bean>
+
 	<bean id="carouselProductConverter" parent="defaultProductConverter">
 		<property name="populators">
 			<list merge="true">
