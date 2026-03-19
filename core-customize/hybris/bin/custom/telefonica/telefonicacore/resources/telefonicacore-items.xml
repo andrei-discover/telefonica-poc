@@ -109,7 +109,7 @@
             </itemtype>
         </typegroup>
 
-        <typegroup name="Perguntas e Respostas">
+        <typegroup name="Questions and Answers">
             <itemtype code="ProductQuestion" extends="GenericItem" autocreate="true" generate="true">
                 <deployment table="ProductQuestion" typecode="15000"/>
                 <attributes>

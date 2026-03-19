@@ -214,36 +214,4 @@
 		</property>
 	</bean>
 
-	<alias name="productQuestionRequestPopulator" alias="defaultProductQuestionRequestPopulator"/>
-	<bean id="productQuestionRequestPopulator"
-		  class="br.com.telefonica.facades.productquestion.populator.TelefonicaProductQuestionRequestPopulator"/>
-
-	<alias name="productQuestionRequestConverter" alias="defaultProductQuestionRequestConverter"/>
-	<bean id="productQuestionRequestConverter"
-		  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
-		<property name="targetClass"
-				  value="br.com.telefonica.facades.productquestion.data.ProductQuestionData"/>
-		<property name="populators">
-			<list>
-				<ref bean="productQuestionRequestPopulator"/>
-			</list>
-		</property>
-	</bean>
-
-	<alias name="productQuestionResponsePopulator" alias="defaultProductQuestionResponsePopulator"/>
-	<bean id="productQuestionResponsePopulator"
-		  class="br.com.telefonica.facades.productquestion.populator.TelefonicaProductQuestionResponsePopulator"/>
-
-	<alias name="productQuestionResponseConverter" alias="defaultProductQuestionResponseConverter"/>
-	<bean id="productQuestionResponseConverter"
-		  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
-		<property name="targetClass"
-				  value="br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO"/>
-		<property name="populators">
-			<list>
-				<ref bean="productQuestionResponsePopulator"/>
-			</list>
-		</property>
-	</bean>
-
 </beans>
