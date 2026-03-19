@@ -1,10 +1,10 @@
 package br.com.telefonica.controllers;
 
-import br.com.telefonica.facades.productquestion.ProductQuestionFacade;
+import br.com.telefonica.facades.productquestion.TelefonicaProductQuestionFacade;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
-import br.com.telefonica.validators.ProductQuestionValidator;
+import br.com.telefonica.validators.TelefonicaProductQuestionValidator;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,10 +21,10 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/{baseSiteId}/productquestions")
 @Tag(name = "Product Questions", description = "Gerencia perguntas relacionadas a produtos.")
-public class ProductQuestionController {
+public class TelefonicaProductQuestionController {
 
     @Resource(name = "productQuestionFacade")
-    private ProductQuestionFacade productQuestionFacade;
+    private TelefonicaProductQuestionFacade productQuestionFacade;
 
     @Resource(name = "productQuestionRequestConverter")
     private Converter<ProductQuestionRequestDTO, ProductQuestionData> requestConverter;
@@ -33,7 +33,7 @@ public class ProductQuestionController {
     private Converter<ProductQuestionData, ProductQuestionResponseDTO> responseConverter;
 
     @Resource(name = "productQuestionValidator")
-    private ProductQuestionValidator productQuestionValidator;
+    private TelefonicaProductQuestionValidator productQuestionValidator;
 
 
     @PostMapping

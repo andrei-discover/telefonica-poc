@@ -541,12 +541,12 @@
 	</bean>
 
 	<alias name="productQuestionDao" alias="defaultProductQuestionDao"/>
-	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.DefaultProductQuestionDao">
+	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.TelefonicaDefaultProductQuestionDao">
 		<property name="flexibleSearchService" ref="flexibleSearchService"/>
 	</bean>
 
 	<alias name="productQuestionService" alias="defaultProductQuestionService"/>
-	<bean id="productQuestionService" class="br.com.telefonica.core.service.impl.DefaultProductQuestionService">
+	<bean id="productQuestionService" class="br.com.telefonica.core.service.impl.TelefonicaDefaultProductQuestionService">
 		<property name="modelService" ref="modelService"/>
 		<property name="productService" ref="productService"/>
 		<property name="userService" ref="userService"/>

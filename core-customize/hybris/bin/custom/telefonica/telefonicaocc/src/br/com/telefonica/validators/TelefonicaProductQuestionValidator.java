@@ -4,7 +4,7 @@ import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class ProductQuestionValidator implements Validator {
+public class TelefonicaProductQuestionValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {

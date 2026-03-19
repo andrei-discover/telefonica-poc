@@ -1,9 +1,9 @@
 package br.com.telefonica.core.service.impl;
 
-import br.com.telefonica.core.dao.ProductQuestionDao;
+import br.com.telefonica.core.dao.TelefonicaProductQuestionDao;
 import br.com.telefonica.core.enums.QuestionStatus;
 import br.com.telefonica.core.model.ProductQuestionModel;
-import br.com.telefonica.core.service.ProductQuestionService;
+import br.com.telefonica.core.service.TelefonicaProductQuestionService;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.core.model.user.UserModel;
@@ -13,13 +13,13 @@ import de.hybris.platform.servicelayer.user.UserService;
 
 import java.util.List;
 
-public class DefaultProductQuestionService implements ProductQuestionService
+public class TelefonicaDefaultProductQuestionService implements TelefonicaProductQuestionService
 {
 
     private ModelService modelService;
     private ProductService productService;
     private UserService userService;
-    private ProductQuestionDao productQuestionDao;
+    private TelefonicaProductQuestionDao productQuestionDao;
 
     @Override
     public ProductQuestionModel createQuestion(final String productCode, final String question) {
@@ -64,7 +64,7 @@ public class DefaultProductQuestionService implements ProductQuestionService
         this.userService = userService;
     }
 
-    public void setProductQuestionDao(final ProductQuestionDao productQuestionDao)
+    public void setProductQuestionDao(final TelefonicaProductQuestionDao productQuestionDao)
     {
         this.productQuestionDao = productQuestionDao;
     }

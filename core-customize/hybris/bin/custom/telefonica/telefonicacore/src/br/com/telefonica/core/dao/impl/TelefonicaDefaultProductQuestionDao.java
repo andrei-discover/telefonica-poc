@@ -1,6 +1,6 @@
 package br.com.telefonica.core.dao.impl;
 
-import br.com.telefonica.core.dao.ProductQuestionDao;
+import br.com.telefonica.core.dao.TelefonicaProductQuestionDao;
 import br.com.telefonica.core.model.ProductQuestionModel;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
@@ -8,7 +8,7 @@ import de.hybris.platform.servicelayer.search.SearchResult;
 
 import java.util.List;
 
-public class DefaultProductQuestionDao implements ProductQuestionDao {
+public class TelefonicaDefaultProductQuestionDao implements TelefonicaProductQuestionDao {
 
     private FlexibleSearchService flexibleSearchService;
 

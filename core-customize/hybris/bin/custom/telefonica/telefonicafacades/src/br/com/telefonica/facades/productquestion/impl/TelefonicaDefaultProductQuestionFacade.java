@@ -1,18 +1,17 @@
 package br.com.telefonica.facades.productquestion.impl;
 
 import br.com.telefonica.core.model.ProductQuestionModel;
-import br.com.telefonica.core.service.ProductQuestionService;
-import br.com.telefonica.facades.productquestion.ProductQuestionFacade;
+import br.com.telefonica.core.service.TelefonicaProductQuestionService;
+import br.com.telefonica.facades.productquestion.TelefonicaProductQuestionFacade;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DefaultProductQuestionFacade implements ProductQuestionFacade {
+public class TelefonicaDefaultProductQuestionFacade implements TelefonicaProductQuestionFacade {
 
-    private ProductQuestionService productQuestionService;
+    private TelefonicaProductQuestionService productQuestionService;
     private Converter<ProductQuestionModel, ProductQuestionData> productQuestionConverter;
 
     @Override
@@ -35,7 +34,7 @@ public class DefaultProductQuestionFacade implements ProductQuestionFacade {
                 .collect(Collectors.toList());
     }
 
-    public void setProductQuestionService(ProductQuestionService productQuestionService) {
+    public void setProductQuestionService(TelefonicaProductQuestionService productQuestionService) {
         this.productQuestionService = productQuestionService;
     }
 

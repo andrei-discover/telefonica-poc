@@ -4,7 +4,7 @@ import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
 import de.hybris.platform.converters.Populator;
 
-public class ProductQuestionRequestPopulator implements Populator<ProductQuestionRequestDTO, ProductQuestionData> {
+public class TelefonicaProductQuestionRequestPopulator implements Populator<ProductQuestionRequestDTO, ProductQuestionData> {
 
     @Override
     public void populate(ProductQuestionRequestDTO source, ProductQuestionData target) {
