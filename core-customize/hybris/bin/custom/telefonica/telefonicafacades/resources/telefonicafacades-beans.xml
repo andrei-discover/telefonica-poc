@@ -16,12 +16,13 @@
     <bean class="de.hybris.platform.commercefacades.product.data.ReviewData">
         <property name="verifiedPurchase" type="Boolean"/>
         <property name="approvalStatus" type= "String"/>
-        <property name="reviewPk" type= "String"/>
+        <property name="usefulCount"      type="Integer"/>
+        <property name="userMarkedUseful" type="Boolean"/>
     </bean>
 
-    <bean class="de.hybris.platform.commercewebservicescommons.dto.product.ReviewWsDTO">
-        <property name="verifiedPurchase" type="Boolean"/>
-        <property name="approvalStatus" type= "String"/>
+    <bean class="br.com.telefonica.facades.review.data.ReviewVoteData">
+        <property name="voted"      type="Boolean"/>
+        <property name="totalVotes" type="Integer"/>
     </bean>
 
     <bean class="br.com.telefonica.facades.productquestion.data.ProductQuestionData">

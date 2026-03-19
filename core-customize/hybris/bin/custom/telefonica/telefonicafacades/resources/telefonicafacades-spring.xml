@@ -27,8 +27,9 @@
         <property name="add"  ref="telefonicaReviewPopulator"/>
     </bean>
 
-    <bean id="telefonicaReviewPopulator" class="br.com.telefonica.facades.populators.ReviewPopulator">
-        <property name="productConverter" ref="productConverter"/>
+    <bean id="telefonicaReviewPopulator" class="br.com.telefonica.facades.populators.TelefonicaReviewPopulator">
+        <property name="telefonicaReviewVoteService" ref="defaultTelefonicaReviewVoteService"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
 	<bean id="carouselProductConverter" parent="defaultProductConverter">
@@ -48,6 +49,12 @@
 			</list>
 		</property>
 	</bean>
+
+    <alias name="defaultTelefonicaReviewVoteFacade" alias="telefonicaReviewVoteFacade" />
+    <bean id="defaultTelefonicaReviewVoteFacade" class="br.com.telefonica.facades.review.impl.DefaultTelefonicaReviewVoteFacade">
+        <property name="telefonicaReviewVoteService" ref="telefonicaReviewVoteService" />
+        <property name="userService" ref="userService" />
+    </bean>
 
 	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator"/>
 	<bean id="defaultAcceleratorVariantOptionDataPopulator"  class="br.com.telefonica.facades.populators.AcceleratorVariantOptionDataPopulator"
@@ -192,6 +199,7 @@
 
 	<bean id="genderData" class="br.com.telefonica.facades.product.data.GenderData" scope="prototype"/>
 
+    <bean id="telefonicaReviewVoteValidator" class="br.com.telefonica.facades.review.validator.TelefonicaReviewVoteValidator"/>
 	<alias name="productQuestionFacade" alias="defaultProductQuestionFacade"/>
 	<bean id="productQuestionFacade"  class="br.com.telefonica.facades.productquestion.impl.TelefonicaDefaultProductQuestionFacade">
 		<property name="productQuestionService" ref="productQuestionService"/>

@@ -5,11 +5,6 @@
         	
     
     <extension abstractclassprefix="Generated" classprefix="TelefonicaCore" managername="TelefonicaCoreManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="telefonicacore">
-                		
-        
-        <!-- you should add all required extensions to this list, except platform 
-			extensions which are automatically required -->
-                		
         
         <requires-extension name="acceleratorcms"/>
         <requires-extension name="b2ctelcoservices"/>

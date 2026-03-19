@@ -25,85 +25,85 @@ import javax.annotation.Resource;
 
 public class BaseController
 {
-    private static final Logger LOG = Logger.getLogger(BaseController.class);
-    protected static final String DEFAULT_FIELD_SET = FieldSetLevelHelper.DEFAULT_LEVEL;
-    protected static final String FULL_FIELD_SET = FieldSetLevelHelper.FULL_LEVEL;
-    private DataMapper dataMapper;
-    private I18NService i18nService;
-    private MessageSource messageSource;
+	private static final Logger LOG = Logger.getLogger(BaseController.class);
+	protected static final String DEFAULT_FIELD_SET = FieldSetLevelHelper.DEFAULT_LEVEL;
+	protected static final String FULL_FIELD_SET = FieldSetLevelHelper.FULL_LEVEL;
+	private DataMapper dataMapper;
+	private I18NService i18nService;
+	private MessageSource messageSource;
 
-    protected String sanitize(final String input)
-    {
-        return YSanitizer.sanitize(input);
-    }
+	protected String sanitize(final String input)
+	{
+		return YSanitizer.sanitize(input);
+	}
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    @ExceptionHandler(
-            { ModelNotFoundException.class })
-    public ErrorListWsDTO handleModelNotFoundException(final Exception ex)
-    {
-        LOG.info("Handling Exception for this request - " + ex.getClass().getSimpleName() + " - " + sanitize(ex.getMessage()));
-        if (LOG.isDebugEnabled())
-        {
-            LOG.debug(ex);
-        }
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	@ExceptionHandler(
+		{ ModelNotFoundException.class })
+	public ErrorListWsDTO handleModelNotFoundException(final Exception ex)
+	{
+		LOG.info("Handling Exception for this request - " + ex.getClass().getSimpleName() + " - " + sanitize(ex.getMessage()));
+		if (LOG.isDebugEnabled())
+		{
+			LOG.debug(ex);
+		}
 
-        return handleErrorInternal(UnknownIdentifierException.class.getSimpleName(), ex.getMessage());
-    }
+		return handleErrorInternal(UnknownIdentifierException.class.getSimpleName(), ex.getMessage());
+	}
 
-    protected void validate(final Object object, final String objectName, final Validator validator)
-    {
-        final Errors errors = new BeanPropertyBindingResult(object, objectName);
-        validator.validate(object, errors);
-        if (errors.hasErrors())
-        {
-            throw new WebserviceValidationException(errors);
-        }
-    }
+	protected void validate(final Object object, final String objectName, final Validator validator)
+	{
+		final Errors errors = new BeanPropertyBindingResult(object, objectName);
+		validator.validate(object, errors);
+		if (errors.hasErrors())
+		{
+			throw new WebserviceValidationException(errors);
+		}
+	}
 
-    protected ErrorListWsDTO handleErrorInternal(final String type, final String message)
-    {
-        final ErrorListWsDTO errorListDto = new ErrorListWsDTO();
-        final ErrorWsDTO error = new ErrorWsDTO();
-        error.setType(type.replace("Exception", "Error"));
-        error.setMessage(sanitize(message));
-        errorListDto.setErrors(Lists.newArrayList(error));
-        return errorListDto;
-    }
-
-
-    protected DataMapper getDataMapper()
-    {
-        return dataMapper;
-    }
-
-    @Resource(name = "dataMapper")
-    public void setDataMapper(final DataMapper dataMapper)
-    {
-        this.dataMapper = dataMapper;
-    }
+	protected ErrorListWsDTO handleErrorInternal(final String type, final String message)
+	{
+		final ErrorListWsDTO errorListDto = new ErrorListWsDTO();
+		final ErrorWsDTO error = new ErrorWsDTO();
+		error.setType(type.replace("Exception", "Error"));
+		error.setMessage(sanitize(message));
+		errorListDto.setErrors(Lists.newArrayList(error));
+		return errorListDto;
+	}
 
 
-    protected I18NService getI18nService()
-    {
-        return i18nService;
-    }
+	protected DataMapper getDataMapper()
+	{
+		return dataMapper;
+	}
 
-    @Resource(name = "i18nService")
-    public void setI18nService(final I18NService i18nService)
-    {
-        this.i18nService = i18nService;
-    }
+	@Resource(name = "dataMapper")
+	public void setDataMapper(final DataMapper dataMapper)
+	{
+		this.dataMapper = dataMapper;
+	}
 
-    protected MessageSource getMessageSource()
-    {
-        return messageSource;
-    }
 
-    @Resource(name = "messageSource")
-    public void setMessageSource(final MessageSource messageSource)
-    {
-        this.messageSource = messageSource;
-    }
+	protected I18NService getI18nService()
+	{
+		return i18nService;
+	}
+
+	@Resource(name = "i18nService")
+	public void setI18nService(final I18NService i18nService)
+	{
+		this.i18nService = i18nService;
+	}
+
+	protected MessageSource getMessageSource()
+	{
+		return messageSource;
+	}
+
+	@Resource(name = "messageSource")
+	public void setMessageSource(final MessageSource messageSource)
+	{
+		this.messageSource = messageSource;
+	}
 }
