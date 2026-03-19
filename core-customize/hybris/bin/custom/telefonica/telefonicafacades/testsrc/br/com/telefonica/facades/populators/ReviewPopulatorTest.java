@@ -30,7 +30,7 @@ class ReviewPopulatorTest {
 	private static final PK   REVIEW_PK       = PK.fromLong(REVIEW_PK_VALUE);
 
 	@InjectMocks
-	private ReviewPopulator populator;
+	private TelefonicaReviewPopulator populator;
 
 	@Mock
 	private Converter<ProductModel, ProductData> productConverter;

@@ -121,6 +121,37 @@
                         </persistence>
                         <description>Notes added by the product review moderator.</description>
                     </attribute>
+                    <attribute qualifier="moderator" type="Employee">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="moderatedAt" type="java.util.Date">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="usefulCount" type="java.lang.Integer">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                        <defaultvalue>0</defaultvalue>
+                    </attribute>
+                </attributes>
+            </itemtype>
+
+            <itemtype code="CustomerReviewVote">
+                <deployment table="CustomerReviewVote" typecode="15004"/>
+                <attributes>
+                    <attribute qualifier="review" type="CustomerReview">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                    <attribute qualifier="voter" type="User">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
+                    <attribute qualifier="votedAt" type="java.util.Date">
+                        <persistence type="property"/>
+                        <modifiers optional="false"/>
+                    </attribute>
                 </attributes>
             </itemtype>
         </typegroup>

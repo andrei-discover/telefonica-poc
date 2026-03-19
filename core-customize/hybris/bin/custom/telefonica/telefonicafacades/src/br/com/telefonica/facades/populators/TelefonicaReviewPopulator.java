@@ -11,7 +11,7 @@ import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import java.util.Objects;
 
-public class ReviewPopulator implements Populator<CustomerReviewModel, ReviewData> {
+public class TelefonicaReviewPopulator implements Populator<CustomerReviewModel, ReviewData> {
 	private Converter<ProductModel, ProductData> productConverter;
 
 	@Override
@@ -29,6 +29,7 @@ public class ReviewPopulator implements Populator<CustomerReviewModel, ReviewDat
 		target.setHeadline(source.getHeadline());
 		target.setComment(source.getComment());
 		target.setReviewPk(source.getPk().toString());
+		target.setUsefulCount(Objects.nonNull(source.getUsefulCount()) ? source.getUsefulCount() : 0);
 
 		if (source.getVerifiedPurchase() != null) {
 			target.setVerifiedPurchase(source.getVerifiedPurchase());

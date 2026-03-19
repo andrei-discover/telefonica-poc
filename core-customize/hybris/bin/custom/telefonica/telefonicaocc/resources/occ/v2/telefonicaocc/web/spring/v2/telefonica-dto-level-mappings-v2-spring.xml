@@ -20,4 +20,16 @@
         </property>
     </bean>
 
+    <bean parent="fieldSetLevelMapping" id="telefonicaReviewVoteWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="br.com.telefonica.occ.review.ReviewVoteWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"   value="voted"/>
+                <entry key="DEFAULT" value="voted,reviewPk,totalVotes"/>
+                <entry key="FULL"    value="voted,reviewPk,totalVotes"/>
+            </map>
+        </property>
+    </bean>
+
 </beans>
