@@ -377,6 +377,13 @@
 		<property name="flexibleSearchService" ref="flexibleSearchService"/>
 	</bean>
 
+    <alias alias="customerReviewService" name="defaultTelefonicaCustomerReviewService"/>
+    <bean id="defaultTelefonicaCustomerReviewService" class="br.com.telefonica.core.service.impl.DefaultTelefonicaCustomerReviewService" parent="defaultCustomerReviewService">
+        <property name="modelService" ref="modelService"/>
+        <property name="eventService" ref="eventService" />
+        <property name="customerReviewDao" ref="customerReviewDao" />
+    </bean>
+
 	<!-- Product Reference Lookup Strategies-->
 	<alias name="apparelCrossSellingProductReferenceTargetStrategy" alias="crossSellingProductReferenceTargetStrategy"/>
 	<bean id="apparelCrossSellingProductReferenceTargetStrategy"
@@ -397,6 +404,11 @@
 	<!-- Sales quote process actions -->
 
 	<!-- quote-->
+    <bean id="verifiedPurchaseCheckEventListener" class="br.com.telefonica.core.event.VerifiedPurchaseCheckEventListener"
+          parent="abstractEventListener">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
 	<bean id="quoteBuyerSubmitEventListener" class="br.com.telefonica.core.event.QuoteBuyerSubmitEventListener"
 		  parent="abstractEventListener">
 		<property name="modelService" ref="modelService"/>

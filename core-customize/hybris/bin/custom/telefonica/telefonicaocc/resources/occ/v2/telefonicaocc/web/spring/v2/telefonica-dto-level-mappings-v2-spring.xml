@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean parent="fieldSetLevelMapping" id="telefonicaReviewWsDTOFieldSetLevelMapping">
+        <property name="dtoClass"
+                  value="de.hybris.platform.commercewebservicescommons.dto.product.ReviewWsDTO"/>
+        <property name="levelMapping">
+            <map>
+                <entry key="BASIC"
+                       value="id,headline,principal,alias,rating,date,comment,verifiedPurchase,approvalStatus"/>
+                <entry key="DEFAULT"
+                       value="id,headline,principal(DEFAULT),alias,rating,date,comment,verifiedPurchase,approvalStatus"/>
+                <entry key="FULL"
+                       value="id,headline,principal(FULL),alias,rating,date,comment,verifiedPurchase,approvalStatus"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>

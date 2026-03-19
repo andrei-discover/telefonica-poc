@@ -10,6 +10,9 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
 
+
     <context:component-scan base-package="br.com.telefonica.controllers"/>
+
+    <import resource="v2/telefonica-dto-level-mappings-v2-spring.xml"/>
 
 </beans>
