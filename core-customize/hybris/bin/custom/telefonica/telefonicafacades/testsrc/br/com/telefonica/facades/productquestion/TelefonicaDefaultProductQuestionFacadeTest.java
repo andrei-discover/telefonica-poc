@@ -1,36 +1,40 @@
 package br.com.telefonica.facades.productquestion;
 
 import br.com.telefonica.core.model.ProductQuestionModel;
-import br.com.telefonica.core.service.ProductQuestionService;
+import br.com.telefonica.core.service.TelefonicaProductQuestionService;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
-import br.com.telefonica.facades.productquestion.impl.DefaultProductQuestionFacade;
+import br.com.telefonica.facades.productquestion.impl.TelefonicaDefaultProductQuestionFacade;
+import de.hybris.bootstrap.annotations.UnitTest;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
+@UnitTest
+@RunWith(MockitoJUnitRunner.class)
 public class TelefonicaDefaultProductQuestionFacadeTest {
 
-    private DefaultProductQuestionFacade facade;
-    private ProductQuestionService service;
+    @Mock
+    private TelefonicaProductQuestionService service;
+
+    @Mock
     private Converter<ProductQuestionModel, ProductQuestionData> converter;
 
-    @BeforeEach
-    void setup() {
-        service = mock(ProductQuestionService.class);
-        converter = mock(Converter.class);
+    @InjectMocks
+    private TelefonicaDefaultProductQuestionFacade facade;
 
-        facade = new DefaultProductQuestionFacade();
-        facade.setProductQuestionService(service);
-        facade.setProductQuestionConverter(converter);
+    @Before
+    public void setUp() {
     }
 
     @Test
-    @DisplayName("Deve criar pergunta via Facade e retornar ProductQuestionData")
-    void createQuestion_delegatesToServiceAndConverter() {
+    public void createQuestion_delegatesToServiceAndConverter() {
         ProductQuestionData requestData = new ProductQuestionData();
         requestData.setProductCode("p1");
         requestData.setQuestion("q?");
@@ -43,7 +47,7 @@ public class TelefonicaDefaultProductQuestionFacadeTest {
         when(service.createQuestion("p1", "q?")).thenReturn(model);
         when(converter.convert(model)).thenReturn(responseData);
 
-        ProductQuestionData result = facade.createQuestion("site", requestData);
+        ProductQuestionData result = facade.createQuestion(requestData);
 
         assertSame(responseData, result);
         verify(service).createQuestion("p1", "q?");

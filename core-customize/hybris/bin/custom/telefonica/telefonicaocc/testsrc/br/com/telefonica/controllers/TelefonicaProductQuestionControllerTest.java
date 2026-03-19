@@ -1,113 +1,117 @@
 package br.com.telefonica.controllers;
 
-import br.com.telefonica.facades.productquestion.ProductQuestionFacade;
+import br.com.telefonica.facades.productquestion.TelefonicaProductQuestionFacade;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
-import br.com.telefonica.validators.ProductQuestionValidator;
-import de.hybris.platform.servicelayer.dto.converter.Converter;
-import de.hybris.platform.webservicescommons.errors.exceptions.WebserviceValidationException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
+import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestWsDTO;
+import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseWsDTO;
+import br.com.telefonica.validators.TelefonicaProductQuestionValidator;
+import de.hybris.bootstrap.annotations.UnitTest;
+import de.hybris.platform.webservicescommons.mapping.DataMapper;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@UnitTest
+@RunWith(MockitoJUnitRunner.class)
 public class TelefonicaProductQuestionControllerTest {
 
+    @Mock
+    private TelefonicaProductQuestionFacade productQuestionFacade;
+
+    @Mock
+    private TelefonicaProductQuestionValidator productQuestionValidator;
+
+    @Mock
+    private DataMapper dataMapper;
+
     @InjectMocks
-    private ProductQuestionController controller;
+    private TelefonicaProductQuestionController controller;
 
-    @Mock
-    private ProductQuestionFacade productQuestionFacade;
-
-    @Mock
-    private Converter<ProductQuestionRequestDTO, ProductQuestionData> requestConverter;
-
-    @Mock
-    private Converter<ProductQuestionData, ProductQuestionResponseDTO> responseConverter;
-
-    @Mock
-    private ProductQuestionValidator productQuestionValidator;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Before
+    public void setUp() {
+        controller.setDataMapper(dataMapper);
     }
 
     @Test
-    void createQuestion_shouldReturnResponse_whenValidRequest() {
-        // Arrange
-        String baseSiteId = "testSite";
-        ProductQuestionRequestDTO requestDTO = new ProductQuestionRequestDTO();
-        requestDTO.setProductCode("PROD123");
-        requestDTO.setQuestion("Qual é a garantia?");
+    public void testCreateQuestion() {
+        ProductQuestionRequestWsDTO requestDTO = new ProductQuestionRequestWsDTO();
+        requestDTO.setProductCode("123");
+        requestDTO.setQuestion("Qual a cor deste produto?");
 
-        ProductQuestionData requestData = new ProductQuestionData();
+        ProductQuestionData mappedRequest = new ProductQuestionData();
+        mappedRequest.setProductCode("123");
+        mappedRequest.setQuestion("Qual a cor deste produto?");
+
         ProductQuestionData responseData = new ProductQuestionData();
-        ProductQuestionResponseDTO responseDTO = new ProductQuestionResponseDTO();
+        responseData.setProductCode("123");
+        responseData.setQuestion("Qual a cor deste produto?");
+        responseData.setStatus("PENDING");
 
-        BindingResult bindingResult = mock(BindingResult.class);
-        when(bindingResult.hasErrors()).thenReturn(false);
-        when(requestConverter.convert(requestDTO)).thenReturn(requestData);
-        when(productQuestionFacade.createQuestion(baseSiteId, requestData)).thenReturn(responseData);
-        when(responseConverter.convert(responseData)).thenReturn(responseDTO);
+        ProductQuestionResponseWsDTO responseDTO = new ProductQuestionResponseWsDTO();
+        responseDTO.setProductCode("123");
+        responseDTO.setQuestion("Qual a cor deste produto?");
+        responseDTO.setStatus("PENDING");
 
-        ProductQuestionResponseDTO result = controller.createQuestion(baseSiteId, requestDTO, bindingResult);
+        when(dataMapper.map(requestDTO, ProductQuestionData.class)).thenReturn(mappedRequest);
+        when(productQuestionFacade.createQuestion(mappedRequest)).thenReturn(responseData);
+        when(dataMapper.map(responseData, ProductQuestionResponseWsDTO.class)).thenReturn(responseDTO);
 
-        assertNotNull(result);
-        assertEquals(responseDTO, result);
-
-        verify(requestConverter).convert(requestDTO);
-        verify(productQuestionFacade).createQuestion(baseSiteId, requestData);
-        verify(responseConverter).convert(responseData);
-    }
-
-    @Test
-    void createQuestion_shouldThrowValidationException_whenBindingResultHasErrors() {
-        ProductQuestionRequestDTO requestDTO = new ProductQuestionRequestDTO();
-        BindingResult bindingResult = mock(BindingResult.class);
-        when(bindingResult.hasErrors()).thenReturn(true);
-
-        assertThrows(WebserviceValidationException.class,
-                () -> controller.createQuestion("testSite", requestDTO, bindingResult));
-
-        verifyNoInteractions(requestConverter, productQuestionFacade, responseConverter);
-    }
-
-    @Test
-    void getQuestions_shouldReturnConvertedList() {
-        String baseSiteId = "testSite";
-        String productCode = "PROD123";
-
-        ProductQuestionData data1 = new ProductQuestionData();
-        ProductQuestionData data2 = new ProductQuestionData();
-
-        ProductQuestionResponseDTO dto1 = new ProductQuestionResponseDTO();
-        ProductQuestionResponseDTO dto2 = new ProductQuestionResponseDTO();
-
-        when(productQuestionFacade.getQuestionsForProduct(baseSiteId, productCode))
-                .thenReturn(List.of(data1, data2));
-        when(responseConverter.convert(data1)).thenReturn(dto1);
-        when(responseConverter.convert(data2)).thenReturn(dto2);
-
-        List<ProductQuestionResponseDTO> result = controller.getQuestions(baseSiteId, productCode);
+        ProductQuestionResponseWsDTO result = controller.createQuestion(requestDTO);
 
         assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals(dto1, result.get(0));
-        assertEquals(dto2, result.get(1));
+        assertEquals("123", result.getProductCode());
+        assertEquals("Qual a cor deste produto?", result.getQuestion());
+        assertEquals("PENDING", result.getStatus());
+
+        verify(productQuestionValidator).validate(eq(requestDTO), any());
+        verify(productQuestionFacade).createQuestion(mappedRequest);
+        verify(dataMapper).map(requestDTO, ProductQuestionData.class);
+        verify(dataMapper).map(responseData, ProductQuestionResponseWsDTO.class);
     }
 
     @Test
-    void initBinder_shouldAddValidator() {
-        WebDataBinder binder = mock(WebDataBinder.class);
-        controller.initBinder(binder);
-        verify(binder).addValidators(productQuestionValidator);
+    public void testGetQuestions() {
+        ProductQuestionData q1 = new ProductQuestionData();
+        q1.setProductCode("123");
+        q1.setQuestion("Qual a cor?");
+        q1.setStatus("PENDING");
+
+        ProductQuestionData q2 = new ProductQuestionData();
+        q2.setProductCode("123");
+        q2.setQuestion("É resistente à água?");
+        q2.setStatus("APPROVED");
+
+        ProductQuestionResponseWsDTO r1 = new ProductQuestionResponseWsDTO();
+        r1.setProductCode("123");
+        r1.setQuestion("Qual a cor?");
+        r1.setStatus("PENDING");
+
+        ProductQuestionResponseWsDTO r2 = new ProductQuestionResponseWsDTO();
+        r2.setProductCode("123");
+        r2.setQuestion("É resistente à água?");
+        r2.setStatus("APPROVED");
+
+        when(productQuestionFacade.getQuestionsForProduct("123")).thenReturn(List.of(q1, q2));
+        when(dataMapper.map(q1, ProductQuestionResponseWsDTO.class)).thenReturn(r1);
+        when(dataMapper.map(q2, ProductQuestionResponseWsDTO.class)).thenReturn(r2);
+
+        List<ProductQuestionResponseWsDTO> responses = controller.getQuestions("123");
+
+        assertEquals(2, responses.size());
+        assertEquals("Qual a cor?", responses.get(0).getQuestion());
+        assertEquals("APPROVED", responses.get(1).getStatus());
+
+        verify(productQuestionFacade).getQuestionsForProduct("123");
+        verify(dataMapper).map(q1, ProductQuestionResponseWsDTO.class);
+        verify(dataMapper).map(q2, ProductQuestionResponseWsDTO.class);
     }
 }

@@ -1,50 +1,55 @@
 package br.com.telefonica.core.service;
 
-import br.com.telefonica.core.dao.ProductQuestionDao;
+import br.com.telefonica.core.dao.TelefonicaProductQuestionDao;
 import br.com.telefonica.core.enums.QuestionStatus;
 import br.com.telefonica.core.model.ProductQuestionModel;
-import br.com.telefonica.core.service.impl.DefaultProductQuestionService;
+import br.com.telefonica.core.service.impl.TelefonicaDefaultProductQuestionService;
+import de.hybris.bootstrap.annotations.UnitTest;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.product.ProductService;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.user.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
+@UnitTest
+@RunWith(MockitoJUnitRunner.class)
 public class TelefonicaDefaultProductQuestionServiceTest {
 
-    private DefaultProductQuestionService service;
+    @Mock
     private ModelService modelService;
+
+    @Mock
     private ProductService productService;
+
+    @Mock
     private UserService userService;
-    private ProductQuestionDao productQuestionDao;
 
-    @BeforeEach
-    void setup() {
-        modelService = mock(ModelService.class);
-        productService = mock(ProductService.class);
-        userService = mock(UserService.class);
-        productQuestionDao = mock(ProductQuestionDao.class);
+    @Mock
+    private TelefonicaProductQuestionDao productQuestionDao;
 
-        service = new DefaultProductQuestionService();
-        service.setModelService(modelService);
-        service.setProductService(productService);
-        service.setUserService(userService);
-        service.setProductQuestionDao(productQuestionDao);
+    @InjectMocks
+    private TelefonicaDefaultProductQuestionService service;
+
+    @Before
+    public void setUp() {
     }
 
     @Test
-    @DisplayName("Deve criar pergunta PENDING e salvar corretamente")
-    void createQuestion_success_setsFieldsAndSaves() {
+    public void createQuestion_success_setsFieldsAndSaves() {
         final String productCode = "iPhone_13_blue_128g";
         final String questionText = "Esta é uma pergunta de teste";
 
@@ -68,24 +73,29 @@ public class TelefonicaDefaultProductQuestionServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar exceção quando pergunta em branco")
-    void createQuestion_blankQuestion_throws() {
+    public void createQuestion_blankQuestion_throws() {
         when(userService.getCurrentUser()).thenReturn(new CustomerModel());
-        assertThrows(IllegalArgumentException.class,
-                () -> service.createQuestion("code", "   "));
+
+        try {
+            service.createQuestion("code", "   ");
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+        }
     }
 
     @Test
-    @DisplayName("Deve lançar exceção quando usuário não é Customer")
-    void createQuestion_userNotCustomer_throws() {
+    public void createQuestion_userNotCustomer_throws() {
         when(userService.getCurrentUser()).thenReturn(new UserModel());
-        assertThrows(IllegalStateException.class,
-                () -> service.createQuestion("code", "ok?"));
+
+        try {
+            service.createQuestion("code", "ok?");
+            fail("Expected IllegalStateException");
+        } catch (IllegalStateException e) {
+        }
     }
 
     @Test
-    @DisplayName("Deve delegar busca de perguntas para DAO")
-    void getQuestionsForProduct_delegatesToDao() {
+    public void getQuestionsForProduct_delegatesToDao() {
         List<ProductQuestionModel> expected = Collections.singletonList(new ProductQuestionModel());
         when(productQuestionDao.findQuestionsByProductCode("code")).thenReturn(expected);
 

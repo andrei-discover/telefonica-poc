@@ -22,21 +22,24 @@ public class TelefonicaDefaultProductQuestionService implements TelefonicaProduc
     private TelefonicaProductQuestionDao productQuestionDao;
 
     @Override
-    public ProductQuestionModel createQuestion(final String productCode, final String question) {
+    public ProductQuestionModel createQuestion(String productCode, String questionText) {
 
-        final UserModel currentUser = userService.getCurrentUser();
-        if (!(currentUser instanceof CustomerModel)) {
-            throw new IllegalStateException("Usuário atual não é um cliente autenticado.");
+        if (questionText == null || questionText.trim().isEmpty()) {
+            throw new IllegalArgumentException("Question must not be empty");
         }
 
-        final CustomerModel customer = (CustomerModel) currentUser;
-        final ProductQuestionModel questionModel = modelService.create(ProductQuestionModel.class);
-        final ProductModel product = productService.getProductForCode(productCode);
+        final UserModel user = userService.getCurrentUser();
+        if (!(user instanceof CustomerModel)) {
+            throw new IllegalStateException("User must be a customer");
+        }
 
-        questionModel.setProduct(product);
-        questionModel.setCustomer(customer);
-        questionModel.setQuestion(question);
+        final ProductModel product = productService.getProductForCode(productCode);
+        final ProductQuestionModel questionModel = modelService.create(ProductQuestionModel.class);
+
+        questionModel.setQuestion(questionText);
         questionModel.setStatus(QuestionStatus.PENDING);
+        questionModel.setCustomer((CustomerModel) user);
+        questionModel.setProduct(product);
 
         modelService.save(questionModel);
 
