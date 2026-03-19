@@ -29,8 +29,15 @@
         <extension name='cmsbackoffice' />
         <extension name='cmssmartedit' />
         <extension name='cmssmarteditwebservices' />
+        <extension name='cms2' />
+        <extension name='cms2lib' />
+        <extension name='cmsbackoffice' />
+        <extension name='cmsfacades' />
+        <extension name='cmsocc' />
         <extension name='cmswebservices' />
+        <extension name='cmscockpit' />
         <extension name='commerceservicesbackoffice' />
+        <extension name="b2ctelcocms" />
         <extension name='commercewebservices' />
         <extension name='couponbackoffice' />
         <extension name='couponfacades' />
