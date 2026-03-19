@@ -1,7 +1,6 @@
 package br.com.telefonica.controllers;
 
 import br.com.telefonica.facades.review.TelefonicaReviewVoteFacade;
-import br.com.telefonica.occ.review.ReviewVoteWsDTO;
 import de.hybris.platform.webservicescommons.cache.CacheControl;
 import de.hybris.platform.webservicescommons.cache.CacheControlDirective;
 import de.hybris.platform.webservicescommons.swagger.ApiBaseSiteIdParam;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,14 +52,5 @@ public class TelefonicaReviewVoteController extends BaseController
 		}
 	}
 
-	@Secured({"ROLE_CUSTOMERGROUP", "ROLE_TRUSTED_CLIENT"})
-	@GetMapping(value = "/{reviewPk}/vote", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	@Operation(operationId = "hasVoted", summary = "Check if user voted", description = "Returns whether the authenticated user has already voted on this review.")
-	@ApiBaseSiteIdParam
-	public ReviewVoteWsDTO hasVoted(@Parameter(description = "Review PK.", required = true) @PathVariable final String reviewPk) {
 
-		return getDataMapper().map(telefonicaReviewVoteFacade.getVoteData(reviewPk),ReviewVoteWsDTO.class);
-	}
 }
