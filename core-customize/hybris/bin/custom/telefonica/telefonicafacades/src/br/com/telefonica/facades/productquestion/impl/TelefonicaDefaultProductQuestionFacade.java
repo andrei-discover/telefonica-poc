@@ -15,7 +15,7 @@ public class TelefonicaDefaultProductQuestionFacade implements TelefonicaProduct
     private Converter<ProductQuestionModel, ProductQuestionData> productQuestionConverter;
 
     @Override
-    public ProductQuestionData createQuestion(String baseSiteId, ProductQuestionData requestDTO) {
+    public ProductQuestionData createQuestion(ProductQuestionData requestDTO) {
 
         final ProductQuestionModel model = productQuestionService.createQuestion(
                 requestDTO.getProductCode(),
@@ -26,7 +26,7 @@ public class TelefonicaDefaultProductQuestionFacade implements TelefonicaProduct
     }
 
     @Override
-    public List<ProductQuestionData> getQuestionsForProduct(String baseSiteId, String productCode) {
+    public List<ProductQuestionData> getQuestionsForProduct(String productCode) {
         final List<ProductQuestionModel> questions = productQuestionService.getQuestionsForProduct(productCode);
 
         return questions.stream()
