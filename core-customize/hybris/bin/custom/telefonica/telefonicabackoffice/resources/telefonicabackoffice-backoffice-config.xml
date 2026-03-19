@@ -3,7 +3,8 @@
  Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
 -->
 <config xmlns="http://www.hybris.com/cockpit/config"
-	xmlns:na="http://www.hybris.com/cockpitng/config/notifications">
+	xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris">
 
 	<context merge-by="module" component="editorareaactions" type="Consignment">
 		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
@@ -21,6 +22,15 @@
 	            <na:message>hmc.action.confirmpickup.success</na:message>
 	        </na:notifications>
 	   </na:notification-area>
+	</context>
+
+	<context type="CustomerReview" component="editorareaactions">
+		<y:actions>
+			<y:group qualifier="common" position="10">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="br.com.telefonica.backoffice.actions.reviewmoderationaction" property="currentObject" position="10"/>
+			</y:group>
+		</y:actions>
 	</context>
 
 </config>

@@ -551,4 +551,10 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+	<alias name="defaultTelefonicaModerationService" alias="telefonicaModerationService"/>
+	<bean id="defaultTelefonicaModerationService"
+		  class="br.com.telefonica.core.moderation.impl.DefaultTelefonicaModerationService">
+		<property name="modelService" ref="modelService"/>
+	</bean>
 </beans>

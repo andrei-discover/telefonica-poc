@@ -121,6 +121,14 @@
                         </persistence>
                         <description>Notes added by the product review moderator.</description>
                     </attribute>
+                    <attribute qualifier="moderator" type="Employee">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="moderatedAt" type="java.util.Date">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
                 </attributes>
             </itemtype>
         </typegroup>
