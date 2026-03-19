@@ -28,11 +28,6 @@ public class TelefonicaDefaultProductQuestionDao implements TelefonicaProductQue
         return result.getResult();
     }
 
-    /**
-     * Setter para injeção do FlexibleSearchService.
-     *
-     * @param flexibleSearchService serviço de busca flexível do Hybris
-     */
     public void setFlexibleSearchService(FlexibleSearchService flexibleSearchService) {
         this.flexibleSearchService = flexibleSearchService;
     }

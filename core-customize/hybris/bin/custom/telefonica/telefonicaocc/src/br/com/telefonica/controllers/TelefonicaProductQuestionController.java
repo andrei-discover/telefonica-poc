@@ -2,8 +2,8 @@ package br.com.telefonica.controllers;
 
 import br.com.telefonica.facades.productquestion.TelefonicaProductQuestionFacade;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestDTO;
-import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseDTO;
+import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestWsDTO;
+import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseWsDTO;
 import br.com.telefonica.validators.TelefonicaProductQuestionValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/{baseSiteId}/productquestions")
-@Tag(name = "Product Questions", description = "Gerencia perguntas relacionadas a produtos.")
+@Tag(name = "Product Questions", description = "Manages product-related questions.")
 public class TelefonicaProductQuestionController extends BaseController {
 
     @Resource(name = "productQuestionFacade")
@@ -29,32 +29,32 @@ public class TelefonicaProductQuestionController extends BaseController {
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             operationId = "createProductQuestion",
-            summary = "Cria uma pergunta para um produto",
-            description = "Permite que um usuário autenticado crie uma pergunta para um produto."
+            summary = "Create a question for a product",
+            description = "Allows an authenticated user to create a question for a product."
     )
-    public ProductQuestionResponseDTO createQuestion(@RequestBody final ProductQuestionRequestDTO requestDTO) {
+    public ProductQuestionResponseWsDTO createQuestion(@RequestBody final ProductQuestionRequestWsDTO requestDTO) {
 
-        validate(requestDTO, "ProductQuestionRequestDTO", productQuestionValidator);
+        validate(requestDTO, "ProductQuestionRequestWsDTO", productQuestionValidator);
 
         ProductQuestionData requestData = getDataMapper().map(requestDTO, ProductQuestionData.class);
         ProductQuestionData responseData = productQuestionFacade.createQuestion(requestData);
 
-        return getDataMapper().map(responseData, ProductQuestionResponseDTO.class);
+        return getDataMapper().map(responseData, ProductQuestionResponseWsDTO.class);
     }
 
 
     @GetMapping
     @Operation(
             operationId = "getProductQuestions",
-            summary = "Lista perguntas de um produto",
-            description = "Retorna todas as perguntas feitas para um produto específico."
+            summary = "List product questions",
+            description = "Returns all questions submitted for a specific product."
     )
-    public List<ProductQuestionResponseDTO> getQuestions(@RequestParam("productCode") final String productCode) {
+    public List<ProductQuestionResponseWsDTO> getQuestions(@RequestParam("productCode") final String productCode) {
 
         final List<ProductQuestionData> questionsData = productQuestionFacade.getQuestionsForProduct(productCode);
 
         return questionsData.stream()
-                .map(q -> getDataMapper().map(q, ProductQuestionResponseDTO.class))
+                .map(q -> getDataMapper().map(q, ProductQuestionResponseWsDTO.class))
                 .toList();
     }
 
