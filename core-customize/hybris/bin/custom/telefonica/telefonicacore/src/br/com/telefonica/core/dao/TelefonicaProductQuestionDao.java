@@ -4,7 +4,7 @@ import br.com.telefonica.core.model.ProductQuestionModel;
 
 import java.util.List;
 
-public interface ProductQuestionDao
+public interface TelefonicaProductQuestionDao
 {
     List<ProductQuestionModel> findQuestionsByProductCode(String productCode);
 }

@@ -4,7 +4,7 @@ import br.com.telefonica.core.model.ProductQuestionModel;
 
 import java.util.List;
 
-public interface ProductQuestionService
+public interface TelefonicaProductQuestionService
 {
     ProductQuestionModel createQuestion(String productCode, String question);
 

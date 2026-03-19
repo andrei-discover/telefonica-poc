@@ -184,14 +184,14 @@
 	<bean id="genderData" class="br.com.telefonica.facades.product.data.GenderData" scope="prototype"/>
 
 	<alias name="productQuestionFacade" alias="defaultProductQuestionFacade"/>
-	<bean id="productQuestionFacade"  class="br.com.telefonica.facades.productquestion.impl.DefaultProductQuestionFacade">
+	<bean id="productQuestionFacade"  class="br.com.telefonica.facades.productquestion.impl.TelefonicaDefaultProductQuestionFacade">
 		<property name="productQuestionService" ref="productQuestionService"/>
 		<property name="productQuestionConverter" ref="productQuestionConverter"/>
 	</bean>
 
 	<alias name="productQuestionPopulator" alias="defaultProductQuestionPopulator"/>
 	<bean id="productQuestionPopulator"
-		  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionPopulator"/>
+		  class="br.com.telefonica.facades.productquestion.populator.TelefonicaProductQuestionPopulator"/>
 
 	<alias name="productQuestionConverter" alias="defaultProductQuestionConverter"/>
 	<bean id="productQuestionConverter"
@@ -207,7 +207,7 @@
 
 	<alias name="productQuestionRequestPopulator" alias="defaultProductQuestionRequestPopulator"/>
 	<bean id="productQuestionRequestPopulator"
-		  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionRequestPopulator"/>
+		  class="br.com.telefonica.facades.productquestion.populator.TelefonicaProductQuestionRequestPopulator"/>
 
 	<alias name="productQuestionRequestConverter" alias="defaultProductQuestionRequestConverter"/>
 	<bean id="productQuestionRequestConverter"
@@ -223,7 +223,7 @@
 
 	<alias name="productQuestionResponsePopulator" alias="defaultProductQuestionResponsePopulator"/>
 	<bean id="productQuestionResponsePopulator"
-		  class="br.com.telefonica.facades.productquestion.populator.ProductQuestionResponsePopulator"/>
+		  class="br.com.telefonica.facades.productquestion.populator.TelefonicaProductQuestionResponsePopulator"/>
 
 	<alias name="productQuestionResponseConverter" alias="defaultProductQuestionResponseConverter"/>
 	<bean id="productQuestionResponseConverter"
