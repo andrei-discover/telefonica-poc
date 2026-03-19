@@ -43,7 +43,6 @@ class ReviewPopulatorTest {
 	@BeforeEach
 	void setUp() {
 		target = new ReviewData();
-		// getPk() é chamado em toda execução do populate — stub padrão aqui
 		given(source.getPk()).willReturn(REVIEW_PK);
 	}
 
