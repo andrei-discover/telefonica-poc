@@ -551,4 +551,17 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+	<alias name="productQuestionDao" alias="defaultProductQuestionDao"/>
+	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.TelefonicaDefaultProductQuestionDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<alias name="productQuestionService" alias="defaultProductQuestionService"/>
+	<bean id="productQuestionService" class="br.com.telefonica.core.service.impl.TelefonicaDefaultProductQuestionService">
+		<property name="modelService" ref="modelService"/>
+		<property name="productService" ref="productService"/>
+		<property name="userService" ref="userService"/>
+		<property name="productQuestionDao" ref="productQuestionDao"/>
+	</bean>
 </beans>

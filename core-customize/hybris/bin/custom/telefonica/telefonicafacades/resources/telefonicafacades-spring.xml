@@ -191,4 +191,27 @@
 	</bean>
 
 	<bean id="genderData" class="br.com.telefonica.facades.product.data.GenderData" scope="prototype"/>
+
+	<alias name="productQuestionFacade" alias="defaultProductQuestionFacade"/>
+	<bean id="productQuestionFacade"  class="br.com.telefonica.facades.productquestion.impl.TelefonicaDefaultProductQuestionFacade">
+		<property name="productQuestionService" ref="productQuestionService"/>
+		<property name="productQuestionConverter" ref="productQuestionConverter"/>
+	</bean>
+
+	<alias name="productQuestionPopulator" alias="defaultProductQuestionPopulator"/>
+	<bean id="productQuestionPopulator"
+		  class="br.com.telefonica.facades.productquestion.populator.TelefonicaProductQuestionPopulator"/>
+
+	<alias name="productQuestionConverter" alias="defaultProductQuestionConverter"/>
+	<bean id="productQuestionConverter"
+		  class="de.hybris.platform.converters.impl.AbstractPopulatingConverter">
+		<property name="targetClass"
+				  value="br.com.telefonica.facades.productquestion.data.ProductQuestionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="productQuestionPopulator"/>
+			</list>
+		</property>
+	</bean>
+
 </beans>
