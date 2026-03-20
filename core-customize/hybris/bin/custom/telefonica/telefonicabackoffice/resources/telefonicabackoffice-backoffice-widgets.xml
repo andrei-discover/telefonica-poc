@@ -26,6 +26,31 @@
 			<setting key="_width" type="String">560px</setting>
 			<virtual-sockets/>
 		</widget>
+
+		<widget id="questionModerationModal"
+				widgetDefinitionId="br.com.telefonica.telefonicabackoffice.widgets.questionmoderationmodal"
+				slotId="cockpitWidgetChildrenInvisible"
+				title="Question Moderation" template="true">
+			<instance-settings socketEventRoutingMode="LAST_USED">
+				<create onInit="false" reuseExisting="false">
+					<incoming-events>
+						<socket-event id="questionModerationInput"/>
+					</incoming-events>
+					<all-incoming-events/>
+				</create>
+				<close>
+					<outgoing-events>
+						<socket-event id="questionModerationOutput"/>
+					</outgoing-events>
+				</close>
+				<select onInit="false"/>
+			</instance-settings>
+			<setting key="__externalLocationPath" type="String">extension://telefonicabackoffice</setting>
+			<setting key="_height" type="String">480px</setting>
+			<setting key="_width" type="String">560px</setting>
+			<virtual-sockets/>
+		</widget>
+
 	</widget-extension>
 
 	<widget-connection
@@ -33,5 +58,11 @@
 			outputId="moderationInput"
 			targetWidgetId="reviewModerationModal"
 			inputId="moderationInput"/>
+
+	<widget-connection
+			sourceWidgetId="STUB_br.com.telefonica.backoffice.actions.questionmoderationaction"
+			outputId="questionModerationInput"
+			targetWidgetId="questionModerationModal"
+			inputId="questionModerationInput"/>
 
 </widgets>

@@ -123,15 +123,32 @@
                     </attribute>
                     <attribute qualifier="question" type="localized:java.lang.String">
                         <persistence type="property"/>
-                        <modifiers optional="false"/>
+                        <modifiers optional="true" search="true" read="true" write="true" />
                     </attribute>
                     <attribute qualifier="answer" type="localized:java.lang.String">
                         <persistence type="property"/>
                         <modifiers optional="true"/>
                     </attribute>
                     <attribute qualifier="status" type="QuestionStatus">
+                        <persistence type="property" />
+                        <modifiers optional="false" />
+                        <defaultvalue>em().getEnumerationValue("QuestionStatus","pending")</defaultvalue>
+                    </attribute>
+                    <attribute qualifier="answerModerator" type="Employee">
                         <persistence type="property"/>
-                        <modifiers optional="false"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="answerModeratedAt" type="java.util.Date">
+                        <persistence type="property"/>
+                        <modifiers optional="true"/>
+                    </attribute>
+                    <attribute qualifier="moderationNotes" type="localized:java.lang.String">
+                        <persistence type="property">
+                            <columntype>
+                                <value>HYBRIS.LONG_STRING</value>
+                            </columntype>
+                        </persistence>
+                        <description>Notes added by the product review moderator.</description>
                     </attribute>
                 </attributes>
             </itemtype>
@@ -146,7 +163,7 @@
                         <persistence type="property"/>
                     </attribute>
 
-                    <attribute qualifier="moderationNotes" type="java.lang.String">
+                    <attribute qualifier="moderationNotes" type="localized:java.lang.String">
                         <persistence type="property">
                             <columntype>
                                 <value>HYBRIS.LONG_STRING</value>

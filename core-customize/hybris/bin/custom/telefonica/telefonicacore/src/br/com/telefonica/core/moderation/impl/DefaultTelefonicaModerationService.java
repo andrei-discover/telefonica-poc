@@ -1,5 +1,7 @@
 package br.com.telefonica.core.moderation.impl;
 
+import br.com.telefonica.core.enums.QuestionStatus;
+import br.com.telefonica.core.model.ProductQuestionModel;
 import br.com.telefonica.core.moderation.TelefonicaModerationService;
 import de.hybris.platform.core.model.user.EmployeeModel;
 import de.hybris.platform.core.model.user.UserModel;
@@ -38,9 +40,38 @@ public class DefaultTelefonicaModerationService implements TelefonicaModerationS
 		review.setModerator((EmployeeModel) userModel);
 		review.setModeratedAt(new Date());
 		modelService.save(review);
-		modelService.save(review);
 
 		LOG.info("Review {} {} by {} at {} — comment: {}", review.getPk(), status, userModel.getUid(), new Date(), comment);
+	}
+
+	@Override
+	public void approveQuestion(final ProductQuestionModel question, final String answer, final String moderationNotes,
+		UserModel userModel)
+	{
+		question.setStatus(QuestionStatus.APPROVED);
+		question.setAnswer(answer);
+		question.setAnswerModerator((EmployeeModel) userModel);
+		question.setAnswerModeratedAt(new Date());
+		question.setModerationNotes(moderationNotes);
+		modelService.save(question);
+
+		LOG.info("Question {} approved by {} — answer: {} notes: {}", question.getPk(), userModel.getUid(),
+			answer, moderationNotes);
+	}
+
+	@Override
+	public void rejectQuestion(final ProductQuestionModel question, final String answer, final String moderationNotes,
+		UserModel userModel)
+	{
+		question.setStatus(QuestionStatus.REJECTED);
+		question.setAnswer(answer);
+		question.setAnswerModerator((EmployeeModel) userModel);
+		question.setAnswerModeratedAt(new Date());
+		question.setModerationNotes(moderationNotes);
+		modelService.save(question);
+
+		LOG.info("Question {} rejected by {} — notes: {}", question.getPk(), userModel.getUid(),
+			moderationNotes);
 	}
 
 	public void setModelService(ModelService modelService)
