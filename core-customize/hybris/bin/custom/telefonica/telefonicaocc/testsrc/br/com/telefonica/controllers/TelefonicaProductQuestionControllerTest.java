@@ -79,39 +79,29 @@ public class TelefonicaProductQuestionControllerTest {
     }
 
     @Test
-    public void testGetQuestions() {
+    public void testGetApprovedQuestions() {
+        // apenas perguntas APPROVED devem ser retornadas
         ProductQuestionData q1 = new ProductQuestionData();
         q1.setProductCode("123");
-        q1.setQuestion("Qual a cor?");
-        q1.setStatus("PENDING");
-
-        ProductQuestionData q2 = new ProductQuestionData();
-        q2.setProductCode("123");
-        q2.setQuestion("É resistente à água?");
-        q2.setStatus("APPROVED");
+        q1.setQuestion("É resistente à água?");
+        q1.setStatus("APPROVED");
 
         ProductQuestionResponseWsDTO r1 = new ProductQuestionResponseWsDTO();
         r1.setProductCode("123");
-        r1.setQuestion("Qual a cor?");
-        r1.setStatus("PENDING");
+        r1.setQuestion("É resistente à água?");
+        r1.setStatus("APPROVED");
 
-        ProductQuestionResponseWsDTO r2 = new ProductQuestionResponseWsDTO();
-        r2.setProductCode("123");
-        r2.setQuestion("É resistente à água?");
-        r2.setStatus("APPROVED");
-
-        when(productQuestionFacade.getQuestionsForProduct("123")).thenReturn(List.of(q1, q2));
+        // Mock do facade agora retorna apenas perguntas APPROVED
+        when(productQuestionFacade.getApprovedQuestionsForProduct("123")).thenReturn(List.of(q1));
         when(dataMapper.map(q1, ProductQuestionResponseWsDTO.class)).thenReturn(r1);
-        when(dataMapper.map(q2, ProductQuestionResponseWsDTO.class)).thenReturn(r2);
 
         List<ProductQuestionResponseWsDTO> responses = controller.getQuestions("123");
 
-        assertEquals(2, responses.size());
-        assertEquals("Qual a cor?", responses.get(0).getQuestion());
-        assertEquals("APPROVED", responses.get(1).getStatus());
+        assertEquals(1, responses.size());
+        assertEquals("É resistente à água?", responses.get(0).getQuestion());
+        assertEquals("APPROVED", responses.get(0).getStatus());
 
-        verify(productQuestionFacade).getQuestionsForProduct("123");
+        verify(productQuestionFacade).getApprovedQuestionsForProduct("123");
         verify(dataMapper).map(q1, ProductQuestionResponseWsDTO.class);
-        verify(dataMapper).map(q2, ProductQuestionResponseWsDTO.class);
     }
 }

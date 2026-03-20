@@ -26,8 +26,8 @@ public class TelefonicaDefaultProductQuestionFacade implements TelefonicaProduct
     }
 
     @Override
-    public List<ProductQuestionData> getQuestionsForProduct(String productCode) {
-        final List<ProductQuestionModel> questions = productQuestionService.getQuestionsForProduct(productCode);
+    public List<ProductQuestionData> getApprovedQuestionsForProduct(String productCode) {
+        final List<ProductQuestionModel> questions = productQuestionService.getApprovedQuestionsForProduct(productCode);
 
         return questions.stream()
                 .map(productQuestionConverter::convert)
