@@ -74,8 +74,6 @@ public class TelefonicaDefaultProductQuestionServiceTest {
 
     @Test
     public void createQuestion_blankQuestion_throws() {
-        when(userService.getCurrentUser()).thenReturn(new CustomerModel());
-
         try {
             service.createQuestion("code", "   ");
             fail("Expected IllegalArgumentException");
@@ -95,13 +93,23 @@ public class TelefonicaDefaultProductQuestionServiceTest {
     }
 
     @Test
-    public void getQuestionsForProduct_delegatesToDao() {
-        List<ProductQuestionModel> expected = Collections.singletonList(new ProductQuestionModel());
-        when(productQuestionDao.findQuestionsByProductCode("code")).thenReturn(expected);
+    public void getApprovedQuestionsForProduct_delegatesToDao() {
 
-        List<ProductQuestionModel> actual = service.getQuestionsForProduct("code");
+        final String productCode = "code";
+
+        ProductModel product = new ProductModel();
+        List<ProductQuestionModel> expected = Collections.singletonList(new ProductQuestionModel());
+
+        when(productService.getProductForCode(productCode)).thenReturn(product);
+
+        when(productQuestionDao.findQuestionsByProductCodeAndStatus(product, QuestionStatus.APPROVED))
+                .thenReturn(expected);
+
+        List<ProductQuestionModel> actual = service.getApprovedQuestionsForProduct(productCode);
 
         assertSame(expected, actual);
-        verify(productQuestionDao).findQuestionsByProductCode("code");
+
+        verify(productService).getProductForCode(productCode);
+        verify(productQuestionDao).findQuestionsByProductCodeAndStatus(product, QuestionStatus.APPROVED);
     }
 }

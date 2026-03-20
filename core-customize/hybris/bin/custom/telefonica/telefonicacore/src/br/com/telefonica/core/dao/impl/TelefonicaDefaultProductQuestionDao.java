@@ -1,7 +1,9 @@
 package br.com.telefonica.core.dao.impl;
 
 import br.com.telefonica.core.dao.TelefonicaProductQuestionDao;
+import br.com.telefonica.core.enums.QuestionStatus;
 import br.com.telefonica.core.model.ProductQuestionModel;
+import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
@@ -13,18 +15,20 @@ public class TelefonicaDefaultProductQuestionDao implements TelefonicaProductQue
     private FlexibleSearchService flexibleSearchService;
 
     @Override
-    public List<ProductQuestionModel> findQuestionsByProductCode(final String productCode) {
+    public List<ProductQuestionModel> findQuestionsByProductCodeAndStatus(final ProductModel product, final QuestionStatus status) {
+
         final String query =
                 "SELECT {pq.pk} " +
-                        "FROM {ProductQuestion AS pq " +
-                        "JOIN Product AS p ON {pq.product} = {p.pk}} " +
-                        "WHERE {p.code} = ?productCode " +
+                        "FROM {ProductQuestion AS pq} " +
+                        "WHERE {pq.product} = ?product " +
+                        "AND {pq.status} = ?status " +
                         "ORDER BY {pq.creationtime} DESC";
 
-        final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query);
-        searchQuery.addQueryParameter("productCode", productCode);
+        final FlexibleSearchQuery flexiQuery = new FlexibleSearchQuery(query);
+        flexiQuery.addQueryParameter("product", product);
+        flexiQuery.addQueryParameter("status", status);
 
-        SearchResult<ProductQuestionModel> result = flexibleSearchService.search(searchQuery);
+        SearchResult<ProductQuestionModel> result = flexibleSearchService.search(flexiQuery);
         return result.getResult();
     }
 

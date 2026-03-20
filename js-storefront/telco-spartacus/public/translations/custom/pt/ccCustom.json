@@ -1,0 +1,29 @@
+{
+  "ccProductReview": {
+    "btnUseful": "Útil?",
+    "btnUsefulAria": "Marcar avaliação como útil",
+    "thanksComment": "Agradecemos seu comentário",
+    "verifiedPurchase": "Compra verificada",
+    "totalVotes": "{{count}} pessoa achou isso útil",
+    "totalVotes_other": "{{count}} pessoas acharam isso útil"
+  },
+  "ccProductQuestions": {
+    "questionsTitle": "Perguntas",
+    "questionsSubtitle": "Procurando informações específicas?",
+    "btnSearch": "Pesquisar",
+    "btnSearchPlaceholder": "Pesquisar perguntas e respostas",
+    "btnCloseAria": "Fechar pesquisa",
+    "showResults": "Mostrando {{count}} resultados",
+    "postQuestion": "Publique sua pergunta",
+    "enterQuestion": "Insira a pergunta",
+    "send": "Enviar",
+    "notFoundQuestions": "Não encontramos as perguntas com a palavra-chave",
+    "notFindLookingFor": "Não encontrou o que está procurando?",
+    "back": "Voltar",
+    "createdIn": "Criado em"
+  },
+  "ccGlobalMessage": {
+    "postQuestionSuccess": "Pergunta enviada com sucesso",
+    "requestError": "Ops! Não foi possível processar a requisição"
+  }
+}

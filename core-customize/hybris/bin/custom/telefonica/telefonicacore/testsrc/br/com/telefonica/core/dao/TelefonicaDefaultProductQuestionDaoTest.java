@@ -1,8 +1,10 @@
 package br.com.telefonica.core.dao;
 
 import br.com.telefonica.core.dao.impl.TelefonicaDefaultProductQuestionDao;
+import br.com.telefonica.core.enums.QuestionStatus;
 import br.com.telefonica.core.model.ProductQuestionModel;
 import de.hybris.bootstrap.annotations.UnitTest;
+import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
@@ -35,8 +37,11 @@ public class TelefonicaDefaultProductQuestionDaoTest {
     public void setUp() {
     }
 
+
     @Test
-    public void findQuestionsByProductCode_buildsQueryAndReturnsResult() {
+    public void findQuestionsByProductAndStatus_buildsQueryAndReturnsResult() {
+
+        ProductModel product = new ProductModel();
 
         ProductQuestionModel p1 = new ProductQuestionModel();
         List<ProductQuestionModel> expected = Arrays.asList(p1);
@@ -48,7 +53,8 @@ public class TelefonicaDefaultProductQuestionDaoTest {
         when(flexibleSearchService.<ProductQuestionModel>search(any(FlexibleSearchQuery.class)))
                 .thenReturn(mockResult);
 
-        List<ProductQuestionModel> actual = dao.findQuestionsByProductCode("myCode");
+        List<ProductQuestionModel> actual =
+                dao.findQuestionsByProductCodeAndStatus(product, QuestionStatus.APPROVED);
 
         assertSame(expected, actual);
 
@@ -60,7 +66,11 @@ public class TelefonicaDefaultProductQuestionDaoTest {
         FlexibleSearchQuery used = captor.getValue();
         String q = used.getQuery();
 
-        assertTrue(q.contains("WHERE {p.code} = ?productCode"));
+        assertTrue(q.contains("FROM {ProductQuestion AS pq}"));
+        assertTrue(q.contains("WHERE {pq.product} = ?product AND {pq.status} = ?status"));
         assertTrue(q.contains("ORDER BY {pq.creationtime} DESC"));
+
+        assertSame(product, used.getQueryParameters().get("product"));
+        assertSame(QuestionStatus.APPROVED, used.getQueryParameters().get("status"));
     }
 }

@@ -50,13 +50,13 @@ public class TelefonicaProductQuestionController extends BaseController {
     @GetMapping
     @Operation(
             operationId = "getProductQuestions",
-            summary = "List product questions",
-            description = "Returns all questions submitted for a specific product."
+            summary = "List approved product questions",
+            description = "Returns only approved questions submitted for a specific product."
     )
 	@ApiBaseSiteIdAndUserIdParam
     public List<ProductQuestionResponseWsDTO> getQuestions(@RequestParam("productCode") final String productCode) {
 
-        final List<ProductQuestionData> questionsData = productQuestionFacade.getQuestionsForProduct(productCode);
+        final List<ProductQuestionData> questionsData = productQuestionFacade.getApprovedQuestionsForProduct(productCode);
 
         return questionsData.stream()
                 .map(q -> getDataMapper().map(q, ProductQuestionResponseWsDTO.class))

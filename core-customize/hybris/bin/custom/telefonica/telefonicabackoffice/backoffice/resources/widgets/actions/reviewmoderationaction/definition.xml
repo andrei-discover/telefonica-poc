@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<action-definition id="br.com.telefonica.backoffice.actions.reviewmoderationaction"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+
+	<name>Review Moderation Action</name>
+	<description>Action to Approve or Reject customer reviews</description>
+	<version>1.0</version>
+
+	<actionClassName>br.com.telefonica.backoffice.actions.TelefonicaApprovalReviewAction</actionClassName>
+
+	<inputType>de.hybris.platform.customerreview.model.CustomerReviewModel</inputType>
+	<outputType>java.lang.Object</outputType>
+
+	<sockets>
+		<output id="moderationInput" type="de.hybris.platform.customerreview.model.CustomerReviewModel"/>
+	</sockets>
+
+	<iconUri>pickup</iconUri>
+
+</action-definition>

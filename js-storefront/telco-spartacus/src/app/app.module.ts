@@ -9,6 +9,7 @@ import { tmaTranslations, TmaSpartacusModule } from '@tua/tua-spa';
 import { AppRoutingModule } from "@spartacus/storefront";
 import { SpartacusConfigurationModule } from './spartacus/spartacus-configuration.module';
 import { AppComponent } from './app.component';
+import { CcComponentsModule } from './custom';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { AppComponent } from './app.component';
     EffectsModule.forRoot([]),
     TmaSpartacusModule,
     SpartacusConfigurationModule,
+    CcComponentsModule,
     ConfigModule.withConfig({
       i18n: {
         resources: tmaTranslations,

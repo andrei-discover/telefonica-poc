@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <widget sclass="yw-reviewmoderationmodal"
+            style="display:flex; flex-direction:column; height:100%;">
+
+        <label sclass="yw-reviewmoderationmodal-title"
+               value="${labels.moderation.title}"/>
+
+        <label sclass="yw-reviewmoderationmodal-subtitle"
+               value="${labels.moderation.subtitle}"/>
+
+        <div sclass="yw-reviewmoderationmodal-content"
+             style="flex:1;">
+            <div sclass="yw-reviewmoderationmodal-textbox-holder">
+
+                <label sclass="yw-reviewmoderationmodal-bold-label"
+                       value="${labels.moderation.comment.label}"/>
+
+                <textbox id="moderationComment"
+                         sclass="yw-reviewmoderationmodal-textbox"
+                         rows="4"
+                         width="100%"
+                         placeholder="${labels.moderation.comment.placeholder}"/>
+
+                <label id="commentError"
+                       sclass="yw-reviewmoderationmodal-error-label"
+                       value="${labels.moderation.comment.error}"
+                       visible="false"/>
+
+            </div>
+        </div>
+
+        <div sclass="yw-reviewmoderationmodal-navigation">
+            <div sclass="yw-left-pack"/>
+            <div sclass="yw-right-pack">
+                <div sclass="yw-component-wrapper">
+                    <button id="cancelButton"
+                            label="${labels.moderation.button.cancel}"/>
+                </div>
+                <div sclass="yw-component-wrapper">
+                    <button id="approveButton"
+                            sclass="yw-btn-primary"
+                            label="${labels.moderation.button.approve}"/>
+                </div>
+                <div sclass="yw-component-wrapper">
+                    <button id="rejectButton"
+                            sclass="yw-reviewmoderationmodal-btn-reject"
+                            label="${labels.moderation.button.reject}"/>
+                </div>
+            </div>
+        </div>
+
+    </widget>
+</zk>

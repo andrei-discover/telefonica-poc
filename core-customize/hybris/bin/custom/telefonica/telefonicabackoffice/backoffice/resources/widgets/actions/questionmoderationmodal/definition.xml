@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!--
+ Copyright (c) 2026 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<widget-definition id="br.com.telefonica.telefonicabackoffice.widgets.questionmoderationmodal"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widget-definition.xsd">
+
+    <name>Question Moderation Modal</name>
+    <description>Modal for approving or rejecting product questions</description>
+    <defaultTitle>Question Moderation</defaultTitle>
+    <version>1.0</version>
+
+    <controller class="br.com.telefonica.backoffice.controller.TelefonicaQuestionModerationController"/>
+
+    <view src="questionmoderationmodal.zul"/>
+
+    <keywords>
+        <keyword>questionmoderationmodal</keyword>
+    </keywords>
+
+    <sockets>
+        <input id="questionModerationInput" type="br.com.telefonica.core.model.ProductQuestionModel"/>
+        <output id="questionModerationOutput" type="java.lang.Object"/>
+    </sockets>
+
+</widget-definition>

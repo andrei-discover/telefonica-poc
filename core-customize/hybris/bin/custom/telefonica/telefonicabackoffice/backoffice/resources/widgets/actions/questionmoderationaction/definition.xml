@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ Copyright (c) 2026 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<action-definition id="br.com.telefonica.backoffice.actions.questionmoderationaction"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/action-definition.xsd">
+
+	<name>Question Moderation Action</name>
+	<description>Action to Approve or Reject product questions</description>
+	<version>1.0</version>
+
+	<actionClassName>br.com.telefonica.backoffice.actions.TelefonicaQuestionModerationAction</actionClassName>
+
+	<inputType>br.com.telefonica.core.model.ProductQuestionModel</inputType>
+	<outputType>java.lang.Object</outputType>
+
+	<sockets>
+		<output id="moderationInput" type="br.com.telefonica.core.model.ProductQuestionModel"/>
+	</sockets>
+
+	<iconUri>pickup</iconUri>
+
+</action-definition>

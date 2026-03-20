@@ -15,11 +15,13 @@ public class TelefonicaProductQuestionPopulator
         Objects.requireNonNull(source, "Parameter source cannot be null");
         Objects.requireNonNull(target, "Parameter target cannot be null");
 
+
         if (source.getProduct() != null) {
             target.setProductCode(source.getProduct().getCode());
         }
 
         target.setQuestion(source.getQuestion());
+        target.setAnswer(source.getAnswer());
 
         if (source.getStatus() != null) {
             target.setStatus(source.getStatus().name());

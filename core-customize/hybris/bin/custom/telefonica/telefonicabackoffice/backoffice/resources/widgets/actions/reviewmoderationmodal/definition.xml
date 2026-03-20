@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!--
+ Copyright (c) 2026 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<widget-definition id="br.com.telefonica.telefonicabackoffice.widgets.reviewmoderationmodal"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widget-definition.xsd">
+
+    <name>Review Moderation Modal</name>
+    <description>Modal for approving or rejecting customer reviews</description>
+    <defaultTitle>Review Moderation</defaultTitle>
+    <version>1.0</version>
+
+    <controller class="br.com.telefonica.backoffice.controller.TelefonicaModerationController"/>
+
+    <view src="reviewmoderationmodal.zul"/>
+
+    <keywords>
+        <keyword>reviewmoderationmodal</keyword>
+    </keywords>
+
+    <sockets>
+        <input id="moderationInput" type="de.hybris.platform.customerreview.model.CustomerReviewModel"/>
+        <output id="moderationOutput" type="java.util.Map"/>
+    </sockets>
+
+</widget-definition>

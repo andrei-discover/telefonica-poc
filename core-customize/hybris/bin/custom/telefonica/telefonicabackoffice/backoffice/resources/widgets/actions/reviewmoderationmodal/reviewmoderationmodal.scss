@@ -1,0 +1,93 @@
+.yw-reviewmoderationmodal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &-title {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 8px 16px 4px 16px;
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &-subtitle {
+        padding: 2px 16px 12px 16px;
+        display: block;
+        font-size: 0.875rem;
+        color: var(--bo-text-secondary-color);
+    }
+
+    &-content {
+        flex: 1;
+        border-top: 1px solid var(--bo-separator-color);
+    }
+
+    &-textbox-holder {
+        padding: 16px;
+    }
+
+    &-bold-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        width: 100%;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    &-textbox {
+        width: 100%;
+
+        &::-webkit-input-placeholder { color: var(--bo-text-secondary-color); }
+        &::-moz-placeholder          { color: var(--bo-text-secondary-color); }
+        &:-ms-input-placeholder      { color: var(--bo-text-secondary-color); }
+    }
+
+    &-error-label {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--bo-negative-color);
+        display: block;
+        margin-top: 6px;
+    }
+
+    &-navigation {
+        background: var(--bo-background-color);
+        height: 56px;
+        border-top: 1px solid var(--bo-separator-color);
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+
+        .yw-left-pack,
+        .yw-right-pack {
+            padding: 0 12px;
+            flex: 1 0 auto;
+
+            &:empty { display: none; }
+
+            .yw-component-wrapper {
+                display: inline-block;
+                padding: 0;
+            }
+        }
+
+        .yw-right-pack {
+            text-align: right;
+
+            .yw-component-wrapper + .yw-component-wrapper {
+                padding-left: 8px;
+            }
+        }
+    }
+
+    &-btn-reject {
+        background: var(--bo-negative-color) !important;
+        border-color: var(--bo-negative-color) !important;
+        color: #fff !important;
+
+        &:hover { opacity: 0.9; }
+    }
+}

@@ -1,7 +1,7 @@
 package br.com.telefonica.core.event;
 
+import br.com.telefonica.core.dao.TelefonicaCustomerReviewDao;
 import de.hybris.platform.core.PK;
-import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.core.model.user.UserModel;
@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class VerifiedPurchaseCheckEventListener extends AbstractEventListener<VerifiedPurchaseCheckEvent> {
 	private ModelService modelService;
+	private TelefonicaCustomerReviewDao telefonicaCustomerReviewDao;
 
 	private static final Logger LOG = Logger.getLogger(VerifiedPurchaseCheckEventListener.class);
 
@@ -39,26 +40,23 @@ public class VerifiedPurchaseCheckEventListener extends AbstractEventListener<Ve
 	}
 
 	protected boolean isVerifiedPurchase(final UserModel user, final ProductModel product) {
-		boolean response = false;
+
 		LOG.info("[VerifiedPurchaseCheckEventListener] - Start purchase verification");
 		if (!(user instanceof CustomerModel)) {
 			return false;
 		}
 
-		CustomerModel customer = (CustomerModel) user;
+		final CustomerModel customer = (CustomerModel) user;
 
-		if(Objects.isNull(customer.getOrders())) {
-			LOG.warn("[VerifiedPurchaseCheckEventListener] - There's no orders for current Customer");
-			return false;
+		final boolean verified = telefonicaCustomerReviewDao
+			.hasCustomerPurchasedProduct(customer, product);
 
-		}
-		response = customer.getOrders().stream()
-			.filter(Objects::nonNull)
-			.flatMap(order -> order.getEntries().stream())
-			.map(AbstractOrderEntryModel::getProduct)
-			.anyMatch(product::equals);
-		LOG.info("[VerifiedPurchaseCheckEventListener] - verified purchase = " + response);
-		return response;
+		LOG.info("[VerifiedPurchaseCheckEventListener] - verified purchase = " + verified);
+		return verified;
+	}
+
+	public void setTelefonicaCustomerReviewDao(TelefonicaCustomerReviewDao telefonicaCustomerReviewDao)	{
+		this.telefonicaCustomerReviewDao = telefonicaCustomerReviewDao;
 	}
 
 	public void setModelService(ModelService modelService)	{
