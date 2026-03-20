@@ -74,13 +74,10 @@ public class TelefonicaDefaultProductQuestionServiceTest {
 
     @Test
     public void createQuestion_blankQuestion_throws() {
-        when(userService.getCurrentUser()).thenReturn(new CustomerModel());
-
         try {
             service.createQuestion("code", "   ");
             fail("Expected IllegalArgumentException");
         } catch (IllegalArgumentException e) {
-            // ok
         }
     }
 
@@ -112,7 +109,6 @@ public class TelefonicaDefaultProductQuestionServiceTest {
 
         assertSame(expected, actual);
 
-        // verifica chamadas corretas
         verify(productService).getProductForCode(productCode);
         verify(productQuestionDao).findQuestionsByProductCodeAndStatus(product, QuestionStatus.APPROVED);
     }
