@@ -7,7 +7,23 @@
     "totalVotes": "{{count}} person found this useful",
     "totalVotes_other": "{{count}} people found this helpful"
   },
+  "ccProductQuestions": {
+    "questionsTitle": "Questions",
+    "questionsSubtitle": "Looking for specific information?",
+    "btnSearch": "Search",
+    "btnSearchPlaceholder": "Search questions and answers",
+    "btnCloseAria": "Close search",
+    "showResults": "Showing {{count}} results",
+    "postQuestion": "Post your question",
+    "enterQuestion": "Enter your question",
+    "send": "Send",
+    "notFoundQuestions": "We did not find any questions containing the keyword.",
+    "notFindLookingFor": "Didn't find what you're looking for?",
+    "back": "Back",
+    "createdIn": "Created in"
+  },
   "ccGlobalMessage": {
+    "postQuestionSuccess": "Question successfully submitted",
     "requestError": "Oops! The request could not be processed"
   }
 }

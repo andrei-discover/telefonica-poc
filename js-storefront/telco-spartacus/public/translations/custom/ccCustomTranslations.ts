@@ -9,6 +9,7 @@ export const ccCustomTranslations: TranslationResources = {
 export const ccCustomTranslationChunksConfig: TranslationChunksConfig = {
   ccCustom: [
     'ccProductReview',
+    'ccProductQuestions',
     'ccGlobalMessage'
   ],
 };
