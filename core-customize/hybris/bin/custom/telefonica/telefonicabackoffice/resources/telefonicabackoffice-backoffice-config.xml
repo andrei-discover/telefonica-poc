@@ -1,26 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--
- Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
--->
 <config xmlns="http://www.hybris.com/cockpit/config"
-	xmlns:na="http://www.hybris.com/cockpitng/config/notifications">
+        xmlns:na="http://www.hybris.com/cockpitng/config/notifications">
 
-	<context merge-by="module" component="editorareaactions" type="Consignment">
-		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
-			<y:group qualifier="common">
-				<y:label>actiongroup.common</y:label>				
-				<y:action action-id="br.com.telefonica.backoffice.actions.confirmpickupaction" property="currentObject"/>				
-			</y:group>
-		</y:actions>
+    <context merge-by="module" component="editorareaactions" type="Consignment">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="br.com.telefonica.backoffice.actions.confirmpickupaction"
+                          property="currentObject"/>
+            </y:group>
+        </y:actions>
     </context>
 
-	<!-- Notification Area-->
-	<context component="notification-area">
-	    <na:notification-area>	        
-	        <na:notifications eventType="telefonicabackoffice.confirmpickup.event" level="SUCCESS">
-	            <na:message>hmc.action.confirmpickup.success</na:message>
-	        </na:notifications>
-	   </na:notification-area>
-	</context>
+    <context component="notification-area">
+        <na:notification-area>
+            <na:notifications eventType="telefonicabackoffice.confirmpickup.event" level="SUCCESS">
+                <na:message>hmc.action.confirmpickup.success</na:message>
+            </na:notifications>
+        </na:notification-area>
+    </context>
+
+    <context merge-by="module" component="explorer-tree" module="telefonicabackoffice">
+        <explorer-tree:explorer-tree
+                xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+            <explorer-tree:navigation-node id="hmc.telefonica" position="10">
+                <explorer-tree:label>hmc.telefonica</explorer-tree:label>
+                <explorer-tree:navigation-node id="hmc.telefonica.productreviews">
+                    <explorer-tree:label>hmc.telefonica.productreviews</explorer-tree:label>
+                    <explorer-tree:type-node
+                            id="hmc.telefonica.productreviews.customerreview"
+                            code="CustomerReview"
+                            principal="backofficeadministratorrole"/>
+                    <explorer-tree:type-node
+                            id="hmc.telefonica.productreviews.customerreviewvote"
+                            code="CustomerReviewVote"
+                            principal="backofficeadministratorrole"/>
+                </explorer-tree:navigation-node>
+            </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="CustomerReview" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="tab.customerreview.essencial">
+                <editorArea:section name="section.customerreview.essencial">
+                    <editorArea:attribute qualifier="product"/>
+                    <editorArea:attribute qualifier="user"/>
+                    <editorArea:attribute qualifier="rating"/>
+                    <editorArea:attribute qualifier="headline"/>
+                    <editorArea:attribute qualifier="comment"/>
+                    <editorArea:attribute qualifier="blocked"/>
+                    <editorArea:attribute qualifier="approvalStatus"/>
+                    <editorArea:attribute qualifier="language"/>
+                </editorArea:section>
+            </editorArea:tab>
+            <editorArea:tab name="tab.customerreview.telefonica">
+                <editorArea:section name="section.customerreview.telefonica">
+                    <editorArea:attribute qualifier="verifiedPurchase"/>
+                    <editorArea:attribute qualifier="usefulCount"/>
+                    <editorArea:attribute qualifier="moderationNotes"/>
+                </editorArea:section>
+            </editorArea:tab>
+            <editorArea:tab name="tab.customerreview.metadata">
+                <editorArea:section name="section.customerreview.metadata">
+                    <editorArea:attribute qualifier="pk"/>
+                    <editorArea:attribute qualifier="creationtime"/>
+                    <editorArea:attribute qualifier="modifiedtime"/>
+                    <editorArea:attribute qualifier="owner"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
+
+    <context merge-by="type" parent="GenericItem" type="CustomerReviewVote" component="editor-area">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+            <editorArea:tab name="tab.customerreviewvote.essencial">
+                <editorArea:section name="section.customerreviewvote.essencial">
+                    <editorArea:attribute qualifier="review"/>
+                    <editorArea:attribute qualifier="voter"/>
+                    <editorArea:attribute qualifier="votedAt"/>
+                </editorArea:section>
+            </editorArea:tab>
+            <editorArea:tab name="tab.customerreviewvote.metadata">
+                <editorArea:section name="section.customerreviewvote.metadata">
+                    <editorArea:attribute qualifier="pk"/>
+                    <editorArea:attribute qualifier="creationtime"/>
+                    <editorArea:attribute qualifier="modifiedtime"/>
+                    <editorArea:attribute qualifier="owner"/>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+    </context>
 
 </config>
