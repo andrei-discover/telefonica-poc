@@ -14,6 +14,7 @@
     "btnSearchPlaceholder": "Search questions and answers",
     "btnCloseAria": "Close search",
     "showResults": "Showing {{count}} results",
+    "noResults": "No questions found",
     "postQuestion": "Post your question",
     "enterQuestion": "Enter your question",
     "send": "Send",

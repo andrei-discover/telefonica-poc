@@ -19,7 +19,6 @@ import { CcProductQuestions } from '../../../model/product.model';
 })
 export class CcProductQuestionsComponent implements OnInit {
   searchboxControl = new FormControl('');
-  isLoading$ = new BehaviorSubject(false);
   form: UntypedFormGroup = this.fb.group({
     question: ['', Validators.required],
   });

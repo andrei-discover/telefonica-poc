@@ -6,14 +6,20 @@ import { CcProductQuestions } from '../model/product.model';
   standalone: false 
 })
 export class SearchQuestionsPipe implements PipeTransform {
-  transform(value: CcProductQuestions[], ...args: any[]): CcProductQuestions[] {
-    let searchQuestion = '';
+  transform(
+    value: CcProductQuestions[] | null | undefined,
+    search: string | null | undefined
+  ): CcProductQuestions[] {
+    
+    if (!value) return [];
 
-    if(args.length !== 0) {
-      searchQuestion = args[0].toLowerCase();
-      return value.filter((data:CcProductQuestions)=> data.question?.toLowerCase().includes(searchQuestion));
-    } 
+    const term = (search ?? '').toLowerCase().trim();
 
-    return value
+    if (!term) return value;
+
+    return value.filter((data: CcProductQuestions) =>
+      (data.question ?? '').toLowerCase().includes(term) ||
+      (data.answer ?? '').toLowerCase().includes(term)
+    );
   }
 }
