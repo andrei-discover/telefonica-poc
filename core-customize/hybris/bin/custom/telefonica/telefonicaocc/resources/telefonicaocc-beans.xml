@@ -8,13 +8,31 @@
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-	<!--
-		Example Data POJO
-	
-	<bean class="yemptypackage.data.MyPojo">
-		<property name="id" type="String"/>
-		<property name="flag" type="boolean"/>
+    <bean class="de.hybris.platform.commercewebservicescommons.dto.product.ReviewWsDTO">
+        <property name="verifiedPurchase" type="Boolean"/>
+        <property name="approvalStatus"   type="String"/>
+        <property name="usefulCount"      type="Integer"/>
+        <property name="userMarkedUseful" type="Boolean"/>
+    </bean>
+
+
+    <bean class="br.com.telefonica.occ.review.ReviewVoteWsDTO">
+        <property name="voted"      type="Boolean"/>
+        <property name="totalVotes" type="Integer"/>
+    </bean>
+
+
+	<bean class="br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestWsDTO">
+		<property name="productCode" type="String"/>
+		<property name="question" type="String"/>
 	</bean>
-	-->
+
+	<bean class="br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseWsDTO">
+		<property name="productCode" type="String"/>
+		<property name="question" type="String"/>
+		<property name="status" type="String"/>
+		<property name="author" type="String"/>
+		<property name="createdDate" type="java.util.Date"/>
+	</bean>
 
 </beans>

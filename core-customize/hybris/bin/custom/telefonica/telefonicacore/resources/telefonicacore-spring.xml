@@ -384,6 +384,17 @@
         <property name="customerReviewDao" ref="customerReviewDao" />
     </bean>
 
+    <alias name="defaultTelefonicaReviewVoteService" alias="telefonicaReviewVoteService" />
+    <bean id="defaultTelefonicaReviewVoteService" class="br.com.telefonica.core.service.impl.DefaultTelefonicaReviewVoteService">
+        <property name="modelService" ref="modelService" />
+        <property name="customerReviewVoteGenericDao" ref="customerReviewVoteGenericDao" />
+    </bean>
+
+    <alias name="defaultCustomerReviewVoteGenericDao" alias="customerReviewVoteGenericDao"/>
+    <bean name="defaultCustomerReviewVoteGenericDao" class="de.hybris.platform.servicelayer.internal.dao.DefaultGenericDao">
+        <constructor-arg value="CustomerReviewVote"/>
+    </bean>
+
 	<!-- Product Reference Lookup Strategies-->
 	<alias name="apparelCrossSellingProductReferenceTargetStrategy" alias="crossSellingProductReferenceTargetStrategy"/>
 	<bean id="apparelCrossSellingProductReferenceTargetStrategy"
@@ -550,6 +561,19 @@
 	<bean id="defaultCSTicketStagnationAction" class="br.com.telefonica.core.retention.impl.DefaultCSTicketStagnationAction" parent="abstractExtensibleRemoveCleanupAction">
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
+	</bean>
+
+	<alias name="productQuestionDao" alias="defaultProductQuestionDao"/>
+	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.TelefonicaDefaultProductQuestionDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<alias name="productQuestionService" alias="defaultProductQuestionService"/>
+	<bean id="productQuestionService" class="br.com.telefonica.core.service.impl.TelefonicaDefaultProductQuestionService">
+		<property name="modelService" ref="modelService"/>
+		<property name="productService" ref="productService"/>
+		<property name="userService" ref="userService"/>
+		<property name="productQuestionDao" ref="productQuestionDao"/>
 	</bean>
 
 	<alias name="defaultTelefonicaModerationService" alias="telefonicaModerationService"/>
