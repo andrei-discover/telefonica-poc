@@ -1,0 +1,1 @@
+export * from './cc-product-review.adapter';

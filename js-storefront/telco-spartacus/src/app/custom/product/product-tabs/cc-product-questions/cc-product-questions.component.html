@@ -1,0 +1,77 @@
+<div class="container cx-product-questions-container" *ngIf="product$ | async as product">
+  <h3>
+    {{ 'ccProductQuestions.questionsSubtitle' | cxTranslate }} 
+  </h3>
+
+  <div class="cx-searchbox-questions-container" [attr.aria-label]="'ccProductQuestions.questionsSubtitle' | cxTranslate">
+    <label class="searchbox">
+      <div class="cx-label-inner-container">
+        <input [formControl]="searchboxControl" autocomplete="off" [placeholder]="'ccProductQuestions.btnSearchPlaceholder' | cxTranslate" tabindex="0">
+        <button class="btn-reset" title="Reset" type="button" [attr.aria-label]="'ccProductQuestions.btnCloseAria' | cxTranslate" *ngIf="searchboxControl.value" (click)="reset()">
+          <cx-icon class="cx-icon fas fa-times-circle"></cx-icon>
+        </button>
+        <div role="presentation" title="Search" *ngIf="!searchboxControl.value">
+          <cx-icon class="cx-icon fas fa-search"></cx-icon>
+        </div>
+      </div>
+    </label>
+  </div>
+
+  <div
+    class="cx-product-questions-results"
+    *ngIf="productQuestions$ | async as productQuestions; else loading"
+  >
+    <ng-container *ngIf="productQuestions | searchQuestions: searchboxControl.value as filteredQuestions">
+      <span> {{ 'ccProductQuestions.showResults' | cxTranslate : { count: filteredQuestions.length } }} </span>
+  
+      <ul
+        tabindex="0"
+        attr.aria-label="{{ 'ccProductQuestions.showResults' | cxTranslate }}"
+        role="listbox"
+        class="cx-list-questions"
+      >
+        <li *ngFor="let results of filteredQuestions">
+          <span class="cx-list-questions--title">{{ results?.question }}</span>
+          <span class="cx-list-questions--subtitle">
+            {{ 'ccProductQuestions.createdIn' | cxTranslate }}:
+            {{ results?.createdDate | cxDate }}
+          </span>
+          <span class="cx-list-questions--text">{{ results?.answer || "-" }}</span>
+        </li>
+      </ul>
+  
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="userLoggedIn$ | async">
+    <div class="cx-product-questions-post-question-container" *ngIf="!isCreatePage">
+      <span>{{ 'ccProductQuestions.notFindLookingFor' | cxTranslate }} </span>
+      <button class="btn btn-question" (click)="this.isCreatePage = true">{{ 'ccProductQuestions.postQuestion' | cxTranslate }}</button>
+    </div>
+  </ng-container>
+
+  <div class="cx-product-questions-create-container" *ngIf="isCreatePage">
+    <div class="cx-product-questions-create-title">
+      <h3>{{ 'ccProductQuestions.postQuestion' | cxTranslate }} </h3>
+      <button class="btn btn-question" (click)="this.isCreatePage = false"><i class="fa-solid fa-arrow-left"></i> {{ 'ccProductQuestions.back' | cxTranslate }}</button>
+    </div>
+    
+    <form [formGroup]="form" (ngSubmit)="createQuestion(product?.code!)" class="cx-product-questions-create-form">
+      <label id="createQuestion">
+        {{ 'ccProductQuestions.enterQuestion' | cxTranslate }}
+        <textarea id="textarea-create-question" for="createQuestion" type="text" formControlName="question" maxlength="150" class="form-control cx-form-control"></textarea>
+
+        <cx-form-errors
+          id="question"
+          [control]="form.get('question')"
+        ></cx-form-errors>
+      </label>
+
+      <button type="submit" class="btn btn-question btn-question--primary">{{ 'ccProductQuestions.send' | cxTranslate }}</button>
+    </form>
+  </div>
+</div>
+
+<ng-template #loading>
+  <cx-spinner></cx-spinner>
+</ng-template>

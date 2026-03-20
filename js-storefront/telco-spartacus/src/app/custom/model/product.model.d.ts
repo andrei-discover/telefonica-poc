@@ -9,3 +9,12 @@ declare module '@spartacus/core' {
   }
 }
 
+export interface CcProductQuestions {
+  productCode?: string
+  question?: string
+  status?: string
+  author?: string
+  createdDate?: number
+  answer?: string
+}
+
