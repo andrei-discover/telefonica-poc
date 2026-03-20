@@ -47,9 +47,11 @@ public class TelefonicaDefaultProductQuestionService implements TelefonicaProduc
     }
 
     @Override
-    public List<ProductQuestionModel> getQuestionsForProduct(final String productCode)
-    {
-        return productQuestionDao.findQuestionsByProductCode(productCode);
+    public List<ProductQuestionModel> getApprovedQuestionsForProduct(final String productCode) {
+
+        final ProductModel product = productService.getProductForCode(productCode);
+
+        return productQuestionDao.findQuestionsByProductCodeAndStatus(product, QuestionStatus.APPROVED);
     }
 
     public void setModelService(final ModelService modelService)

@@ -7,5 +7,5 @@ import java.util.List;
 public interface TelefonicaProductQuestionFacade
 {
     ProductQuestionData createQuestion(ProductQuestionData requestDTO);
-    public List<ProductQuestionData> getQuestionsForProduct(String productCode);
+    List<ProductQuestionData> getApprovedQuestionsForProduct(String productCode);
 }

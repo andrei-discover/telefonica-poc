@@ -7,6 +7,5 @@ import java.util.List;
 public interface TelefonicaProductQuestionService
 {
     ProductQuestionModel createQuestion(String productCode, String question);
-
-    List<ProductQuestionModel> getQuestionsForProduct(String productCode);
+    List<ProductQuestionModel> getApprovedQuestionsForProduct(final String productCode);
 }
