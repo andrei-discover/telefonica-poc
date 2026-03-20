@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { GlobalMessageService, GlobalMessageType } from '@spartacus/core';
+import { catchError, switchMap } from 'rxjs/operators';
+import { GlobalMessageService, GlobalMessageType, UserIdService } from '@spartacus/core';
 import { CcProductReviewConnector } from '../connector';
 import { CcProductQuestions } from '../model/product.model';
 
@@ -12,7 +12,8 @@ export class CcProductReviewService {
 
   constructor(
     private ccProductReviewConnector: CcProductReviewConnector,
-    private globalMessageService: GlobalMessageService
+    private globalMessageService: GlobalMessageService,
+    private userIdService: UserIdService
   ) {}
 
   listProductQuestion(productCode: string): Observable<CcProductQuestions[]> {
@@ -33,6 +34,21 @@ export class CcProductReviewService {
         throw error
       })
     );
+  }
+
+  voteProductReview(
+    id: string
+  ){
+    return this.userIdService.takeUserId().pipe(
+      switchMap(userId => {
+        return this.ccProductReviewConnector.voteProductReview(userId, id).pipe(
+          catchError((error) => {
+            this.showErrorMessage();
+            throw error
+          })
+        );
+      })
+    )
   }
 
   showErrorMessage(): void {

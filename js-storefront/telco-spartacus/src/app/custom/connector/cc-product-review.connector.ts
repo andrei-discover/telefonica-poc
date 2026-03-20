@@ -19,5 +19,12 @@ export class CcProductReviewConnector {
     return this.ccProductReviewAdapter.listProductQuestion(productCode);
   }
 
+  voteProductReview(
+    userId: string,
+    id: string
+  ){
+    return this.ccProductReviewAdapter.voteProductReview(userId, id);
+  }
+
 
 }

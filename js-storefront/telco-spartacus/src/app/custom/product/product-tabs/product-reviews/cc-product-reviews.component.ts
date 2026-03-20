@@ -5,11 +5,12 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { AuthService, ProductReviewService, User } from '@spartacus/core';
+import { AuthService, ProductActions, ProductReviewService, User } from '@spartacus/core';
 import { CurrentProductService, ProductReviewsComponent } from '@spartacus/storefront';
 import { filter, Observable, Subject, takeUntil, tap } from 'rxjs';
 import { UserAccountFacade } from '@spartacus/user/account/root';
 import { Store } from '@ngrx/store';
+import { CcProductReviewService } from '../../../service';
 
 @Component({
   selector: 'cx-product-reviews',
@@ -29,7 +30,9 @@ export class CcProductReviewsComponent extends ProductReviewsComponent implement
     fb: UntypedFormBuilder, 
     cd: ChangeDetectorRef,
     private userAccountFacade: UserAccountFacade,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store,
+    private ccProductReviewService: CcProductReviewService,
   ) {
     super(reviewService, currentProductService, fb, cd);
   }
@@ -51,7 +54,6 @@ export class CcProductReviewsComponent extends ProductReviewsComponent implement
     ).subscribe()
   }
 
-  
   override initiateWriteReview(): void {
     this.isWritingReview = true;
 
@@ -63,5 +65,18 @@ export class CcProductReviewsComponent extends ProductReviewsComponent implement
 
     this.listUserData();
 
+  }
+
+  voteReview(id: string = "", productCode: string = "") {
+    const refreshReviewList = () => {
+      this.store.dispatch(
+        new ProductActions.LoadProductReviews(productCode)
+      );
+    }
+
+    this.ccProductReviewService.voteProductReview(id).pipe(
+      takeUntil(this.unsubscribe$),
+      tap(refreshReviewList),
+    ).subscribe()
   }
 }
