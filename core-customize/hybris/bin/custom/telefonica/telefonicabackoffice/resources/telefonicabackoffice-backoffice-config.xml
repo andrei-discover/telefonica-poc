@@ -33,27 +33,28 @@
 	<context type="ProductQuestion" component="listview" merge-by="type" parent="GenericItem">
 		<list-view:list-view
 				xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
-			<list-view:column qualifier="question" label="Pergunta"/>
-			<list-view:column qualifier="product" label="Produto"/>
-			<list-view:column qualifier="customer" label="Cliente"/>
-			<list-view:column qualifier="status" label="Status"/>
-			<list-view:column qualifier="creationtime" label="Criado em"/>
+			<list-view:column qualifier="question" />
+			<list-view:column qualifier="product" />
+			<list-view:column qualifier="customer" />
+			<list-view:column qualifier="status" />
+			<list-view:column qualifier="creationtime" />
 		</list-view:list-view>
 	</context>
 
-	<context type="ProductQuestion" component="editor-area" merge-by="type" parent="GenericItem">
-		<editorArea:editorArea
-				xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
-			<editorArea:tab name="Geral">
-				<editorArea:section name="Dados">
-					<editorArea:attribute qualifier="question"/>
-					<editorArea:attribute qualifier="answer"/>
-					<editorArea:attribute qualifier="product"/>
-					<editorArea:attribute qualifier="customer"/>
-					<editorArea:attribute qualifier="status"/>
-				</editorArea:section>
-			</editorArea:tab>
-		</editorArea:editorArea>
+	<context type="ProductQuestion" component="editor-area" merge-by="type" parent="GenericItem"
+			 xmlns:ea="http://www.hybris.com/cockpitng/component/editorArea">
+		<ea:editorArea name="">
+			<ea:tab name="hmc.administration">
+				<ea:section name="hmc.productQuestionData">
+					<ea:attribute qualifier="question" readonly="false"/>
+					<ea:attribute qualifier="answer" readonly="false"/>
+					<ea:attribute qualifier="product" readonly="true"/>
+					<ea:attribute qualifier="customer" readonly="true"/>
+					<ea:attribute qualifier="status" readonly="true"/>
+					<ea:attribute qualifier="creationtime" readonly="true"/>
+				</ea:section>
+			</ea:tab>
+		</ea:editorArea>
 	</context>
 
 	<context type="ProductQuestion" component="advanced-search" merge-by="type" parent="GenericItem">
