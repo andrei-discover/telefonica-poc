@@ -1,0 +1,14 @@
+{
+  "ccProductReview": {
+    "btnUseful": "Useful?",
+    "btnUsefulAria": "Mark review as useful",
+    "thanksComment": "Thank you for your comment",
+    "verifiedPurchase": "Verified Purchase",
+    "totalVotes": "{{count}} person found this useful",
+    "totalVotes_other": "{{count}} people found this helpful"
+  },
+  "ccGlobalMessage": {
+    "requestError": "Oops! The request could not be processed"
+  }
+}
+
