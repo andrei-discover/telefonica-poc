@@ -581,4 +581,10 @@
 		<property name="userService" ref="userService"/>
 		<property name="productQuestionDao" ref="productQuestionDao"/>
 	</bean>
+
+	<alias name="defaultTelefonicaModerationService" alias="telefonicaModerationService"/>
+	<bean id="defaultTelefonicaModerationService"
+		  class="br.com.telefonica.core.moderation.impl.DefaultTelefonicaModerationService">
+		<property name="modelService" ref="modelService"/>
+	</bean>
 </beans>

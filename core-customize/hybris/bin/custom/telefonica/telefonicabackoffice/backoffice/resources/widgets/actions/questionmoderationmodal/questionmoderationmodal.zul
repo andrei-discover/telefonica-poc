@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <widget sclass="yw-questionmoderationmodal"
+            style="display:flex; flex-direction:column; height:100%;">
+
+        <label sclass="yw-questionmoderationmodal-title"
+               value="${labels.question.moderation.title}"/>
+
+        <label sclass="yw-questionmoderationmodal-subtitle"
+               value="${labels.question.moderation.subtitle}"/>
+
+        <div sclass="yw-questionmoderationmodal-content"
+             style="flex:1;">
+            <div sclass="yw-questionmoderationmodal-textbox-holder">
+
+                <label sclass="yw-questionmoderationmodal-bold-label"
+                       value="${labels.question.moderation.question.label}"/>
+
+                <label id="questionText"
+                       sclass="yw-questionmoderationmodal-question-text"/>
+
+                <separator bar="false" height="12px"/>
+
+                <label sclass="yw-questionmoderationmodal-bold-label"
+                       value="${labels.question.moderation.answer.label}"/>
+
+                <textbox id="moderationAnswer"
+                         sclass="yw-questionmoderationmodal-textbox"
+                         rows="6"
+                         width="100%"
+                         placeholder="${labels.question.moderation.answer.placeholder}"/>
+
+                <label id="answerError"
+                       sclass="yw-questionmoderationmodal-error-label"
+                       value="${labels.question.moderation.answer.error}"
+                       visible="false"/>
+
+                <separator bar="false" height="8px"/>
+
+                <label sclass="yw-questionmoderationmodal-bold-label"
+                       value="${labels.question.moderation.comment.label}"/>
+
+                <textbox id="moderationComment"
+                         sclass="yw-questionmoderationmodal-textbox"
+                         rows="3"
+                         width="100%"
+                         placeholder="${labels.question.moderation.comment.placeholder}"/>
+
+                <label id="commentError"
+                       sclass="yw-questionmoderationmodal-error-label"
+                       value="${labels.question.moderation.comment.error}"
+                       visible="false"/>
+
+            </div>
+        </div>
+
+        <div sclass="yw-questionmoderationmodal-navigation">
+            <div sclass="yw-left-pack"/>
+            <div sclass="yw-right-pack">
+                <div sclass="yw-component-wrapper">
+                    <button id="cancelButton"
+                            label="${labels.question.moderation.button.cancel}"/>
+                </div>
+                <div sclass="yw-component-wrapper">
+                    <button id="publishButton"
+                            sclass="yw-btn-primary"
+                            label="${labels.question.moderation.button.publish}"/>
+                </div>
+                <div sclass="yw-component-wrapper">
+                    <button id="rejectButton"
+                            sclass="yw-questionmoderationmodal-btn-reject"
+                            label="${labels.question.moderation.button.reject}"/>
+                </div>
+            </div>
+        </div>
+
+    </widget>
+</zk>
