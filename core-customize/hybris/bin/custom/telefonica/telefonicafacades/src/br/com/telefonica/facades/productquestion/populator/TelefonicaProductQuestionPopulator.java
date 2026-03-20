@@ -3,9 +3,7 @@ package br.com.telefonica.facades.productquestion.populator;
 import br.com.telefonica.core.model.ProductQuestionModel;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import de.hybris.platform.converters.Populator;
-import de.hybris.platform.servicelayer.i18n.I18NService;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class TelefonicaProductQuestionPopulator
