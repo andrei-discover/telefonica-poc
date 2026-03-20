@@ -3,7 +3,9 @@ package br.com.telefonica.facades.productquestion.populator;
 import br.com.telefonica.core.model.ProductQuestionModel;
 import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import de.hybris.platform.converters.Populator;
+import de.hybris.platform.servicelayer.i18n.I18NService;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class TelefonicaProductQuestionPopulator
@@ -15,11 +17,13 @@ public class TelefonicaProductQuestionPopulator
         Objects.requireNonNull(source, "Parameter source cannot be null");
         Objects.requireNonNull(target, "Parameter target cannot be null");
 
+
         if (source.getProduct() != null) {
             target.setProductCode(source.getProduct().getCode());
         }
 
         target.setQuestion(source.getQuestion());
+        target.setAnswer(source.getAnswer());
 
         if (source.getStatus() != null) {
             target.setStatus(source.getStatus().name());
