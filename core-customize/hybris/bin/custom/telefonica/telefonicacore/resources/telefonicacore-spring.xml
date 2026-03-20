@@ -415,9 +415,15 @@
 	<!-- Sales quote process actions -->
 
 	<!-- quote-->
+
+    <bean id="telefonicaCustomerReviewDao" class="br.com.telefonica.core.dao.impl.DefaultTelefonicaCustomerReviewDao">
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+
     <bean id="verifiedPurchaseCheckEventListener" class="br.com.telefonica.core.event.VerifiedPurchaseCheckEventListener"
           parent="abstractEventListener">
         <property name="modelService" ref="modelService"/>
+        <property name="telefonicaCustomerReviewDao" ref="telefonicaCustomerReviewDao"/>
     </bean>
 
 	<bean id="quoteBuyerSubmitEventListener" class="br.com.telefonica.core.event.QuoteBuyerSubmitEventListener"

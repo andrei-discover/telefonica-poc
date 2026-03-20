@@ -1,9 +1,8 @@
 package br.com.telefonica.core.event;
 
+import br.com.telefonica.core.dao.TelefonicaCustomerReviewDao;
 import de.hybris.bootstrap.annotations.UnitTest;
 import de.hybris.platform.core.PK;
-import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
-import de.hybris.platform.core.model.order.OrderModel;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.core.model.user.UserModel;
@@ -15,11 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -33,27 +27,26 @@ public class VerifiedPurchaseCheckEventListenerTest {
 
 	private VerifiedPurchaseCheckEventListener listener;
 	private ModelService modelService;
+	private TelefonicaCustomerReviewDao telefonicaCustomerReviewDao;
 	private VerifiedPurchaseCheckEvent event;
 	private CustomerReviewModel review;
 	private CustomerModel customer;
 	private ProductModel product;
-	private OrderModel order;
-	private AbstractOrderEntryModel orderEntry;
 
 	private static final PK REVIEW_PK = PK.fromLong(123456789L);
 
 	@Before
 	public void setUp() {
-		listener     = new VerifiedPurchaseCheckEventListener();
-		modelService = mock(ModelService.class);
-		event        = mock(VerifiedPurchaseCheckEvent.class);
-		review       = mock(CustomerReviewModel.class);
-		customer     = mock(CustomerModel.class);
-		product      = mock(ProductModel.class);
-		order        = mock(OrderModel.class);
-		orderEntry   = mock(AbstractOrderEntryModel.class);
+		listener                    = new VerifiedPurchaseCheckEventListener();
+		modelService                = mock(ModelService.class);
+		telefonicaCustomerReviewDao = mock(TelefonicaCustomerReviewDao.class);
+		event                       = mock(VerifiedPurchaseCheckEvent.class);
+		review                      = mock(CustomerReviewModel.class);
+		customer                    = mock(CustomerModel.class);
+		product                     = mock(ProductModel.class);
 
 		listener.setModelService(modelService);
+		listener.setTelefonicaCustomerReviewDao(telefonicaCustomerReviewDao);
 		when(event.getReviewPk()).thenReturn(REVIEW_PK);
 	}
 
@@ -62,7 +55,8 @@ public class VerifiedPurchaseCheckEventListenerTest {
 		when(modelService.get(REVIEW_PK)).thenReturn(review);
 		when(review.getUser()).thenReturn(customer);
 		when(review.getProduct()).thenReturn(product);
-		when(customer.getOrders()).thenReturn((Collection) Collections.emptyList());
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
 
 		listener.onEvent(event);
 
@@ -83,7 +77,8 @@ public class VerifiedPurchaseCheckEventListenerTest {
 		when(modelService.get(REVIEW_PK)).thenReturn(review);
 		when(review.getUser()).thenReturn(customer);
 		when(review.getProduct()).thenReturn(product);
-		when(customer.getOrders()).thenReturn((Collection) Collections.emptyList());
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
 
 		listener.onEvent(event);
 
@@ -91,25 +86,12 @@ public class VerifiedPurchaseCheckEventListenerTest {
 	}
 
 	@Test
-	public void onEvent_ShouldSetVerifiedPurchaseFalse_WhenCustomerHasNoOrders() {
+	public void onEvent_ShouldSetVerifiedPurchaseTrue_WhenDaoReturnsTrue() {
 		when(modelService.get(REVIEW_PK)).thenReturn(review);
 		when(review.getUser()).thenReturn(customer);
 		when(review.getProduct()).thenReturn(product);
-		when(customer.getOrders()).thenReturn((Collection) Collections.emptyList());
-
-		listener.onEvent(event);
-
-		verify(review).setVerifiedPurchase(false);
-	}
-
-	@Test
-	public void onEvent_ShouldSetVerifiedPurchaseTrue_WhenProductFoundInOrders() {
-		when(modelService.get(REVIEW_PK)).thenReturn(review);
-		when(review.getUser()).thenReturn(customer);
-		when(review.getProduct()).thenReturn(product);
-		when(orderEntry.getProduct()).thenReturn(product);
-		when(order.getEntries()).thenReturn((List) Collections.singletonList(orderEntry));
-		when(customer.getOrders()).thenReturn((Collection) Collections.singletonList(order));
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(true);
 
 		listener.onEvent(event);
 
@@ -117,18 +99,29 @@ public class VerifiedPurchaseCheckEventListenerTest {
 	}
 
 	@Test
-	public void onEvent_ShouldSetVerifiedPurchaseFalse_WhenProductNotFoundInOrders() {
-		ProductModel otherProduct = mock(ProductModel.class);
+	public void onEvent_ShouldSetVerifiedPurchaseFalse_WhenDaoReturnsFalse() {
 		when(modelService.get(REVIEW_PK)).thenReturn(review);
 		when(review.getUser()).thenReturn(customer);
 		when(review.getProduct()).thenReturn(product);
-		when(orderEntry.getProduct()).thenReturn(otherProduct);
-		when(order.getEntries()).thenReturn((List) Collections.singletonList(orderEntry));
-		when(customer.getOrders()).thenReturn((Collection) Collections.singletonList(order));
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
 
 		listener.onEvent(event);
 
 		verify(review).setVerifiedPurchase(false);
+	}
+
+	@Test
+	public void onEvent_ShouldDelegateToDaoWithCorrectParams_WhenReviewIsNotNull() {
+		when(modelService.get(REVIEW_PK)).thenReturn(review);
+		when(review.getUser()).thenReturn(customer);
+		when(review.getProduct()).thenReturn(product);
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
+
+		listener.onEvent(event);
+
+		verify(telefonicaCustomerReviewDao).hasCustomerPurchasedProduct(customer, product);
 	}
 
 	@Test
@@ -138,31 +131,14 @@ public class VerifiedPurchaseCheckEventListenerTest {
 		boolean result = listener.isVerifiedPurchase(plainUser, product);
 
 		Assert.assertFalse(result);
+		verify(telefonicaCustomerReviewDao, never())
+			.hasCustomerPurchasedProduct(customer, product);
 	}
 
 	@Test
-	public void isVerifiedPurchase_ShouldReturnFalse_WhenCustomerOrdersIsNull() {
-		when(customer.getOrders()).thenReturn(null);
-
-		boolean result = listener.isVerifiedPurchase(customer, product);
-
-		Assert.assertFalse(result);
-	}
-
-	@Test
-	public void isVerifiedPurchase_ShouldReturnFalse_WhenCustomerHasNoOrders() {
-		when(customer.getOrders()).thenReturn((Collection) Collections.emptyList());
-
-		boolean result = listener.isVerifiedPurchase(customer, product);
-
-		Assert.assertFalse(result);
-	}
-
-	@Test
-	public void isVerifiedPurchase_ShouldReturnTrue_WhenProductExistsInOrderEntries() {
-		when(orderEntry.getProduct()).thenReturn(product);
-		when(order.getEntries()).thenReturn((List) Collections.singletonList(orderEntry));
-		when(customer.getOrders()).thenReturn((Collection) Collections.singletonList(order));
+	public void isVerifiedPurchase_ShouldReturnTrue_WhenDaoReturnsTrue() {
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(true);
 
 		boolean result = listener.isVerifiedPurchase(customer, product);
 
@@ -170,11 +146,9 @@ public class VerifiedPurchaseCheckEventListenerTest {
 	}
 
 	@Test
-	public void isVerifiedPurchase_ShouldReturnFalse_WhenProductNotInAnyOrderEntry() {
-		ProductModel otherProduct = mock(ProductModel.class);
-		when(orderEntry.getProduct()).thenReturn(otherProduct);
-		when(order.getEntries()).thenReturn((List) Collections.singletonList(orderEntry));
-		when(customer.getOrders()).thenReturn((Collection) Collections.singletonList(order));
+	public void isVerifiedPurchase_ShouldReturnFalse_WhenDaoReturnsFalse() {
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
 
 		boolean result = listener.isVerifiedPurchase(customer, product);
 
@@ -182,32 +156,13 @@ public class VerifiedPurchaseCheckEventListenerTest {
 	}
 
 	@Test
-	public void isVerifiedPurchase_ShouldReturnTrue_WhenProductFoundInOneOfMultipleOrders() {
-		OrderModel otherOrder                    = mock(OrderModel.class);
-		AbstractOrderEntryModel matchingEntry    = mock(AbstractOrderEntryModel.class);
-		AbstractOrderEntryModel nonMatchingEntry = mock(AbstractOrderEntryModel.class);
-		ProductModel differentProduct            = mock(ProductModel.class);
+	public void isVerifiedPurchase_ShouldDelegateToDaoWithCorrectParams_WhenUserIsCustomer() {
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
 
-		when(nonMatchingEntry.getProduct()).thenReturn(differentProduct);
-		when(order.getEntries()).thenReturn((List) Collections.singletonList(nonMatchingEntry));
+		listener.isVerifiedPurchase(customer, product);
 
-		when(matchingEntry.getProduct()).thenReturn(product);
-		when(otherOrder.getEntries()).thenReturn((List) Collections.singletonList(matchingEntry));
-
-		when(customer.getOrders()).thenReturn((Collection) Arrays.asList(order, otherOrder));
-
-		boolean result = listener.isVerifiedPurchase(customer, product);
-
-		Assert.assertTrue(result);
-	}
-
-	@Test
-	public void isVerifiedPurchase_ShouldIgnoreNullOrders_WhenListContainsNull() {
-		when(customer.getOrders()).thenReturn((Collection) Collections.singletonList(null));
-
-		boolean result = listener.isVerifiedPurchase(customer, product);
-
-		Assert.assertFalse(result);
+		verify(telefonicaCustomerReviewDao).hasCustomerPurchasedProduct(customer, product);
 	}
 
 	@Test
@@ -216,12 +171,29 @@ public class VerifiedPurchaseCheckEventListenerTest {
 		when(otherModelService.get(REVIEW_PK)).thenReturn(review);
 		when(review.getUser()).thenReturn(customer);
 		when(review.getProduct()).thenReturn(product);
-		when(customer.getOrders()).thenReturn((Collection) Collections.emptyList());
+		when(telefonicaCustomerReviewDao.hasCustomerPurchasedProduct(customer, product))
+			.thenReturn(false);
 
 		listener.setModelService(otherModelService);
 		listener.onEvent(event);
 
 		verify(otherModelService).get(REVIEW_PK);
 		verify(modelService, never()).get(REVIEW_PK);
+	}
+
+	@Test
+	public void setTelefonicaCustomerReviewDao_ShouldUseNewDao_WhenReplaced() {
+		TelefonicaCustomerReviewDao otherDao = mock(TelefonicaCustomerReviewDao.class);
+		when(modelService.get(REVIEW_PK)).thenReturn(review);
+		when(review.getUser()).thenReturn(customer);
+		when(review.getProduct()).thenReturn(product);
+		when(otherDao.hasCustomerPurchasedProduct(customer, product)).thenReturn(true);
+
+		listener.setTelefonicaCustomerReviewDao(otherDao);
+		listener.onEvent(event);
+
+		verify(otherDao).hasCustomerPurchasedProduct(customer, product);
+		verify(telefonicaCustomerReviewDao, never())
+			.hasCustomerPurchasedProduct(customer, product);
 	}
 }
