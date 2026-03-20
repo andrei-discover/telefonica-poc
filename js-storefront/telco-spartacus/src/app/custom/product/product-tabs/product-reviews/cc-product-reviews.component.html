@@ -43,6 +43,22 @@
             class="text"
             [text]="review.comment!"
           ></cx-read-more>
+          <div class="text cx-total-votes" *ngIf="review.usefulCount! > 0">
+            {{ 'ccProductReview.totalVotes' | cxTranslate: { count: review.usefulCount } }}
+          </div>
+          <div class="text" *ngIf="userLoggedIn$ | async">
+            <button
+              class="btn btn-secondary"
+              (click)="voteReview(review?.id, product?.code)"
+              [attr.aria-label]="'ccProductReview.btnUsefulAria' | cxTranslate"
+              type="button"
+              *ngIf="!review?.userMarkedUseful"
+            >
+              <i class="fa-solid fa-thumbs-up"></i> {{ 'ccProductReview.btnUseful' | cxTranslate }}
+            </button>
+
+            <div class="cx-success" *ngIf="!!review?.userMarkedUseful">{{ 'ccProductReview.thanksComment' | cxTranslate }}</div>
+          </div>
         </div>
         <div *ngIf="reviews.length > initialMaxListItems">
           <button

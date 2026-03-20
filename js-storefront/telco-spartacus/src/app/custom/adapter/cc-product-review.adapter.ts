@@ -26,4 +26,14 @@ export class CcProductReviewAdapter {
     return this.http.get<CcProductQuestions[]>(url, {});
   }
 
+  voteProductReview(
+    userId: string,
+    id: string
+  ) {
+    const url = this.occEndpointsService.buildUrl('ccProductReviewVote', {
+      urlParams: { userId, id},
+    });
+    return this.http.post<{}>(url, {});
+  }
+
 }
