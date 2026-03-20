@@ -5,6 +5,7 @@ import br.com.telefonica.facades.productquestion.data.ProductQuestionData;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionRequestWsDTO;
 import br.com.telefonica.facades.productquestion.dto.ProductQuestionResponseWsDTO;
 import br.com.telefonica.validators.TelefonicaProductQuestionValidator;
+import de.hybris.platform.webservicescommons.swagger.ApiBaseSiteIdAndUserIdParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class TelefonicaProductQuestionController extends BaseController {
             summary = "Create a question for a product",
             description = "Allows an authenticated user to create a question for a product."
     )
+	@ApiBaseSiteIdAndUserIdParam
     public ProductQuestionResponseWsDTO createQuestion(@RequestBody final ProductQuestionRequestWsDTO requestDTO) {
 
         validate(requestDTO, "ProductQuestionRequestWsDTO", productQuestionValidator);
@@ -51,6 +53,7 @@ public class TelefonicaProductQuestionController extends BaseController {
             summary = "List product questions",
             description = "Returns all questions submitted for a specific product."
     )
+	@ApiBaseSiteIdAndUserIdParam
     public List<ProductQuestionResponseWsDTO> getQuestions(@RequestParam("productCode") final String productCode) {
 
         final List<ProductQuestionData> questionsData = productQuestionFacade.getQuestionsForProduct(productCode);
