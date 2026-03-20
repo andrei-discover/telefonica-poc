@@ -415,8 +415,8 @@
 	<!-- Sales quote process actions -->
 
 	<!-- quote-->
-
-    <bean id="telefonicaCustomerReviewDao" class="br.com.telefonica.core.dao.impl.DefaultTelefonicaCustomerReviewDao">
+    <alias alias="telefonicaCustomerReviewDao" name="defaultTelefonicaCustomerReviewDao" />
+    <bean id="defaultTelefonicaCustomerReviewDao" class="br.com.telefonica.core.dao.impl.DefaultTelefonicaCustomerReviewDao">
         <property name="flexibleSearchService" ref="flexibleSearchService"/>
     </bean>
 
