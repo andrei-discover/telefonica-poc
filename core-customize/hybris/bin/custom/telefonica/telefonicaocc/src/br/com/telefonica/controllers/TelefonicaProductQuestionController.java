@@ -8,6 +8,7 @@ import br.com.telefonica.validators.TelefonicaProductQuestionValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +28,7 @@ public class TelefonicaProductQuestionController extends BaseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Secured({ "ROLE_CUSTOMERGROUP", "ROLE_TRUSTED_CLIENT" })
     @Operation(
             operationId = "createProductQuestion",
             summary = "Create a question for a product",
