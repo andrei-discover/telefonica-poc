@@ -5,9 +5,9 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { AuthService, ProductActions, ProductReviewService, User } from '@spartacus/core';
+import { AuthService, ProductActions, ProductReviewService, RoutingService, User } from '@spartacus/core';
 import { CurrentProductService, ProductReviewsComponent } from '@spartacus/storefront';
-import { filter, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { filter, Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { UserAccountFacade } from '@spartacus/user/account/root';
 import { Store } from '@ngrx/store';
 import { CcProductReviewService } from '../../../service';
@@ -33,6 +33,7 @@ export class CcProductReviewsComponent extends ProductReviewsComponent implement
     private authService: AuthService,
     private store: Store,
     private ccProductReviewService: CcProductReviewService,
+    private routingService: RoutingService
   ) {
     super(reviewService, currentProductService, fb, cd);
   }
@@ -55,16 +56,26 @@ export class CcProductReviewsComponent extends ProductReviewsComponent implement
   }
 
   override initiateWriteReview(): void {
-    this.isWritingReview = true;
 
-    this.cd.detectChanges();
-
-    if (this.titleInput && this.titleInput.nativeElement) {
-      this.titleInput.nativeElement.focus();
+    const validateLogin = (isLogged: boolean) => {
+      if (isLogged) {
+        this.isWritingReview = true;
+        this.cd.detectChanges();
+    
+        if (this.titleInput && this.titleInput.nativeElement) {
+          this.titleInput.nativeElement.focus();
+        }
+        this.listUserData();
+      } else {
+         this.routingService.go({ cxRoute: 'login' });
+      }
     }
 
-    this.listUserData();
-
+    this.userLoggedIn$.pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+      tap(validateLogin)
+    ).subscribe();
   }
 
   voteReview(id: string = "", productCode: string = "") {
