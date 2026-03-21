@@ -48,12 +48,10 @@
     </ng-container>
   </div>
 
-  <ng-container *ngIf="userLoggedIn$ | async">
-    <div class="cx-product-questions-post-question-container" *ngIf="!isCreatePage">
-      <span>{{ 'ccProductQuestions.notFindLookingFor' | cxTranslate }} </span>
-      <button class="btn btn-question" (click)="this.isCreatePage = true" [attr.aria-label]="'ccProductQuestions.postQuestion' | cxTranslate">{{ 'ccProductQuestions.postQuestion' | cxTranslate }}</button>
-    </div>
-  </ng-container>
+  <div class="cx-product-questions-post-question-container" *ngIf="!isCreatePage">
+    <span>{{ 'ccProductQuestions.notFindLookingFor' | cxTranslate }} </span>
+    <button class="btn btn-question" (click)="showCreateTemplate()" [attr.aria-label]="'ccProductQuestions.postQuestion' | cxTranslate">{{ 'ccProductQuestions.postQuestion' | cxTranslate }}</button>
+  </div>
 
   <div class="cx-product-questions-create-container" *ngIf="isCreatePage">
     <div class="cx-product-questions-create-title">

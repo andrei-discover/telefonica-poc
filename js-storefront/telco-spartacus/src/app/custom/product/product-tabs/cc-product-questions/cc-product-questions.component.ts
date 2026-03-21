@@ -4,9 +4,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, debounceTime, map, Observable, Subject, takeUntil, tap} from 'rxjs';
+import { BehaviorSubject, debounceTime, map, Observable, Subject, take, takeUntil, tap} from 'rxjs';
 import { CcProductReviewService } from '../../../service';
-import { AuthService, GlobalMessageService, GlobalMessageType, Product } from '@spartacus/core';
+import { AuthService, GlobalMessageService, GlobalMessageType, Product, RoutingService } from '@spartacus/core';
 import { CurrentProductService } from '@spartacus/storefront';
 import { CcProductQuestions } from '../../../model/product.model';
 
@@ -40,7 +40,8 @@ export class CcProductQuestionsComponent implements OnInit {
     private ccProductReviewService: CcProductReviewService,
     private currentProductService: CurrentProductService,
     private globalMessageService: GlobalMessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private routingService: RoutingService
   ) {}
 
   ngOnInit(): void {
@@ -98,6 +99,22 @@ export class CcProductQuestionsComponent implements OnInit {
       { key: 'ccGlobalMessage.postQuestionSuccess' },
       GlobalMessageType.MSG_TYPE_CONFIRMATION
     )
+  }
+
+  showCreateTemplate() {
+    const validateLogin = (isLogged: boolean) => {
+      if (isLogged) {
+        this.isCreatePage = true;
+      } else {
+        this.routingService.go({ cxRoute: 'login' });
+      }
+    }
+
+    this.userLoggedIn$.pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+      tap(validateLogin)
+    ).subscribe();
   }
 
 }
