@@ -121,11 +121,11 @@
                         <persistence type="property"/>
                         <modifiers optional="false"/>
                     </attribute>
-                    <attribute qualifier="question" type="localized:java.lang.String">
+                    <attribute qualifier="question" type="java.lang.String">
                         <persistence type="property"/>
                         <modifiers optional="true" search="true" read="true" write="true" />
                     </attribute>
-                    <attribute qualifier="answer" type="localized:java.lang.String">
+                    <attribute qualifier="answer" type="java.lang.String">
                         <persistence type="property"/>
                         <modifiers optional="true"/>
                     </attribute>
