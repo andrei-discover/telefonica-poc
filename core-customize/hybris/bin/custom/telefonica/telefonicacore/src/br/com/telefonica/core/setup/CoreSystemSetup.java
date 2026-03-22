@@ -42,6 +42,8 @@ public class CoreSystemSetup extends AbstractSystemSetup
 		importImpexFile(context, "/telefonicacore/import/common/themes.impex");
 		importImpexFile(context, "/telefonicacore/import/common/user-groups.impex");
 		importImpexFile(context, "/telefonicacore/import/common/cronjobs.impex");
+
+		importImpexFile(context, "telefonicacore/import/poc/impex/telefonica-pdp-question-tab.impex");
 	}
 
 	/**
