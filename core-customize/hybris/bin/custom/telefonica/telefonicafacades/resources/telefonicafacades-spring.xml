@@ -222,4 +222,12 @@
 		</property>
 	</bean>
 
+	<alias name="defaultTelefonicaProductEngagementFacade" alias="telefonicaProductEngagementFacade"/>
+	<bean id="defaultTelefonicaProductEngagementFacade"
+		  class="br.com.telefonica.facades.engagement.impl.DefaultTelefonicaProductProductEngagementFacade">
+		<property name="telefonicaProductEngagementDao" ref="telefonicaProductEngagementDao"/>
+		<property name="telefonicaProductEngagementService" ref="telefonicaProductEngagementService"/>
+		<property name="productService" ref="productService"/>
+		<property name="customerReviewConverter" ref="customerReviewConverter"/>
+	</bean>
 </beans>

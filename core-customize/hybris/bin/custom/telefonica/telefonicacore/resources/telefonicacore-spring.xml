@@ -587,4 +587,14 @@
 		  class="br.com.telefonica.core.moderation.impl.DefaultTelefonicaModerationService">
 		<property name="modelService" ref="modelService"/>
 	</bean>
+
+	<alias name="defaultTelefonicaProductEngagementDao" alias="telefonicaProductEngagementDao"/>
+	<bean id="defaultTelefonicaProductEngagementDao"
+		  class="br.com.telefonica.core.dao.impl.DefaultTelefonicaProductEngagementDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
+
+	<alias name="defaultTelefonicaProductEngagementService" alias="telefonicaProductEngagementService"/>
+	<bean id="defaultTelefonicaProductEngagementService"
+		  class="br.com.telefonica.core.service.impl.DefaultTelefonicaProductEngagementService"/>
 </beans>

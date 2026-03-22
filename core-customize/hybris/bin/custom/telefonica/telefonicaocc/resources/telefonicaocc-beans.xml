@@ -35,5 +35,16 @@
 		<property name="author" type="String"/>
 		<property name="createdDate" type="java.util.Date"/>
 	</bean>
+	
+	<bean class="br.com.telefonica.occ.dto.product.engagement.ProductEngagementSummaryWsDTO">
+		<property name="productId" type="String" />
+		<property name="averageRating" type="Double" />
+		<property name="ratingDistribution" type="java.util.Map&lt;Integer,Long&gt;"/>
+		<property name="verifiedPurchasePercentage" type="Double" />
+		<property name="topHelpfulReviews" type="java.util.List&lt;de.hybris.platform.commercewebservicescommons.dto.product.ReviewWsDTO&gt;" />
+		<property name="totalQuestions" type="Integer" />
+		<property name="questionPublicationRate" type="Double" />
+		<property name="averageAnswerTimeHours" type="Double" />
+	</bean>
 
 </beans>
