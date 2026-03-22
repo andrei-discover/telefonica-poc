@@ -3,7 +3,10 @@ package br.com.telefonica.backoffice.controller;
 import br.com.telefonica.core.moderation.TelefonicaModerationService;
 import com.hybris.cockpitng.annotations.SocketEvent;
 import com.hybris.cockpitng.annotations.ViewEvent;
+import com.hybris.cockpitng.dataaccess.facades.object.ObjectFacade;
 import com.hybris.cockpitng.util.DefaultWidgetController;
+import com.hybris.cockpitng.util.notifications.NotificationService;
+import com.hybris.cockpitng.util.notifications.event.NotificationEvent;
 import de.hybris.platform.customerreview.model.CustomerReviewModel;
 import de.hybris.platform.servicelayer.user.UserService;
 import org.apache.commons.lang.StringUtils;
@@ -19,16 +22,14 @@ import org.zkoss.zul.Textbox;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class TelefonicaModerationController extends DefaultWidgetController
 {
 	private static final Logger LOG = LoggerFactory.getLogger(TelefonicaModerationController.class);
 
 	private static final String OUTPUT_SOCKET = "moderationOutput";
-
-	private static final String MODEL_KEY_ITEM    = "currentItem";
-	private static final String DECISION_APPROVE  = "APPROVE";
-	private static final String DECISION_REJECT   = "REJECT";
+	private static final String MODEL_KEY_ITEM = "currentItem";
+	private static final String DECISION_APPROVE = "APPROVE";
+	private static final String DECISION_REJECT = "REJECT";
 
 	@Wire
 	private Textbox moderationComment;
@@ -42,14 +43,14 @@ public class TelefonicaModerationController extends DefaultWidgetController
 	private TelefonicaModerationService telefonicaModerationService;
 	@WireVariable
 	private UserService userService;
+	@WireVariable
+	private NotificationService notificationService;
 
 	@Override
 	public void initialize(final org.zkoss.zk.ui.Component comp)
 	{
 		super.initialize(comp);
-
 		commentError.setVisible(false);
-
 		LOG.info("ModerationController initialized.");
 	}
 
@@ -116,6 +117,7 @@ public class TelefonicaModerationController extends DefaultWidgetController
 			telefonicaModerationService.reject(item, moderationNotes, userService.getCurrentUser());
 		}
 
+		notificationService.notifyUser(getWidgetInstanceManager(),  "CustomerReviewMessage", NotificationEvent.Level.SUCCESS);
 		sendOutput(OUTPUT_SOCKET, buildOutput(decision, moderationNotes, item));
 	}
 
