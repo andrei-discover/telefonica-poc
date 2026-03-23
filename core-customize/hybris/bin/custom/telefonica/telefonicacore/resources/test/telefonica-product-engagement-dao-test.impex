@@ -1,0 +1,18 @@
+INSERT_UPDATE UserGroup; uid[unique = true]
+                       ; testgroup
+
+INSERT_UPDATE Customer; uid[unique = true]     ; name
+                      ; test.customer@test.com ; Test Customer
+
+INSERT_UPDATE Product; code[unique = true]; catalogVersion(catalog(id), version)
+                     ; testProduct        ; testCatalog:Online
+
+INSERT_UPDATE CustomerReview; product(code, catalogVersion(catalog(id), version))[unique = true]; user(uid)[unique = true]; rating; headline[unique = true]; comment            ; approvalStatus(code); language(isocode); verifiedPurchase
+                            ; testProduct:testCatalog:Online                                    ; test.customer@test.com  ; 5     ; Great product!         ; Amazing product!   ; approved            ; en               ; true
+                            ; testProduct:testCatalog:Online                                    ; test.customer@test.com  ; 4     ; Good product!          ; Very good product! ; approved            ; en               ; false
+                            ; testProduct:testCatalog:Online                                    ; test.customer@test.com  ; 3     ; Average product!       ; Average product!   ; pending             ; en               ; false
+
+INSERT_UPDATE ProductQuestion; product(code, catalogVersion(catalog(id), version))[unique = true]; customer(uid)[unique = true]; question[unique = true]       ; answer                ; status(code)
+                             ; testProduct:testCatalog:Online                                    ; test.customer@test.com      ; Does it have warranty?        ; Yes, 1 year warranty. ; APPROVED
+                             ; testProduct:testCatalog:Online                                    ; test.customer@test.com      ; What is the battery capacity? ; 3227 mAh.             ; APPROVED
+                             ; testProduct:testCatalog:Online

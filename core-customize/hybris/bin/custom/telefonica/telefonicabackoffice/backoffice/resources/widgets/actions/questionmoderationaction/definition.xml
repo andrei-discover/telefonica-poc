@@ -19,6 +19,6 @@
 		<output id="moderationInput" type="br.com.telefonica.core.model.ProductQuestionModel"/>
 	</sockets>
 
-	<iconUri>pickup</iconUri>
+	<iconUri>cloud</iconUri>
 
 </action-definition>

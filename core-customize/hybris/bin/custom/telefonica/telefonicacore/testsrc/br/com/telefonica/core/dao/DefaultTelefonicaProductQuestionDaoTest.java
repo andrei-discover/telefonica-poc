@@ -1,6 +1,6 @@
 package br.com.telefonica.core.dao;
 
-import br.com.telefonica.core.dao.impl.TelefonicaDefaultProductQuestionDao;
+import br.com.telefonica.core.dao.impl.DefaultTelefonicaProductQuestionDao;
 import br.com.telefonica.core.enums.QuestionStatus;
 import br.com.telefonica.core.model.ProductQuestionModel;
 import de.hybris.bootstrap.annotations.UnitTest;
@@ -25,13 +25,14 @@ import static org.mockito.Mockito.*;
 
 @UnitTest
 @RunWith(MockitoJUnitRunner.class)
-public class TelefonicaDefaultProductQuestionDaoTest {
+public class DefaultTelefonicaProductQuestionDaoTest
+{
 
     @Mock
     private FlexibleSearchService flexibleSearchService;
 
     @InjectMocks
-    private TelefonicaDefaultProductQuestionDao dao;
+    private DefaultTelefonicaProductQuestionDao dao;
 
     @Before
     public void setUp() {
