@@ -417,7 +417,7 @@ Script Groovy para registrar votos nas reviews aprovadas via HAC Scripting.
 **1. Filtrando Perguntas Pendentes**
 
 > Acesse **Perguntas sobre Produtos** e aplique o filtro:
-> - Clique na 🔍 lupa para abrir os filtros
+> - Clique na lupa para abrir os filtros
 > - Selecione **Status** igual a **Pendente**
 > - Clique em **Pesquisar**
 
@@ -476,48 +476,7 @@ Script Groovy para registrar votos nas reviews aprovadas via HAC Scripting.
 
 > As classes criadas na extensão de backoffice não foram consideradas no Coverage.
 
-### Classes cobertas
-
-#### Testes Unitários
-| Classe | Tipo |
-|---|---|
-| `DefaultTelefonicaProductEngagementService` | Unitário |
-| `DefaultTelefonicaProductEngagementFacade` | Unitário |
-| `TelefonicaEngagementSummaryController` | Unitário |
-| `DefaultTelefonicaModerationService` | Unitário |
-| `DefaultTelefonicaCustomerReviewService` | Unitário |
-| `TelefonicaProductQuestionValidator` | Unitário |
-
-#### Testes de Integração
-| Classe | Tipo |
-|---|---|
-| `DefaultTelefonicaProductEngagementDao` | Integração |
-
-### Como executar os testes
-```bash
-cd ~/telefonica-poc/core-customize/hybris/bin/platform
-
-. ./setantenv.sh && ant alltests \
-  -Dstandalone.javaoptions="-Djava.locale.providers=COMPAT,CLDR \
-  -javaagent:$PLATFORM_HOME/../../config/sonar/jacocoagent.jar=destfile=$PLATFORM_HOME/../../config/sonar/jacocoAllTests.exec" \
-  -Dtestclasses.extensions="telefonicacore,telefonicafacades,telefonicaocc,telefonicabackoffice" && \
-java -jar $PLATFORM_HOME/../../config/sonar/jacococli.jar report \
-  $PLATFORM_HOME/../../config/sonar/jacocoAllTests.exec \
-  --classfiles $PLATFORM_HOME/../custom/telefonica/telefonicacore/classes \
-  --classfiles $PLATFORM_HOME/../custom/telefonica/telefonicafacades/classes \
-  --classfiles $PLATFORM_HOME/../custom/telefonica/telefonicaocc/classes \
-  --classfiles $PLATFORM_HOME/../custom/telefonica/telefonicabackoffice/classes \
-  --xml $PLATFORM_HOME/../../config/sonar/jacocoTestReport.xml && \
-ant sonarcheck
-```
-
 ### Dashboard SonarQube
-
-> Para visualizar o relatório completo acesse:
-> ```
-> http://localhost:9000
-> ```
-
 <img width="1528" height="653" alt="image" src="https://github.com/user-attachments/assets/e631751a-5edb-478a-81da-ba0e922cfd47" />
 
 ---
