@@ -19,6 +19,6 @@
 		<output id="moderationInput" type="de.hybris.platform.customerreview.model.CustomerReviewModel"/>
 	</sockets>
 
-	<iconUri>pickup</iconUri>
+	<iconUri>cloud</iconUri>
 
 </action-definition>

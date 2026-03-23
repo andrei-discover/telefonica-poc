@@ -570,7 +570,7 @@
 	</bean>
 
 	<alias name="productQuestionDao" alias="defaultProductQuestionDao"/>
-	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.TelefonicaDefaultProductQuestionDao">
+	<bean id="productQuestionDao"  class="br.com.telefonica.core.dao.impl.DefaultTelefonicaProductQuestionDao">
 		<property name="flexibleSearchService" ref="flexibleSearchService"/>
 	</bean>
 

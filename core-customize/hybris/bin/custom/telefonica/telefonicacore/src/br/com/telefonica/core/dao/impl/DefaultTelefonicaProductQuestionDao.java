@@ -10,7 +10,7 @@ import de.hybris.platform.servicelayer.search.SearchResult;
 
 import java.util.List;
 
-public class TelefonicaDefaultProductQuestionDao implements TelefonicaProductQuestionDao {
+public class DefaultTelefonicaProductQuestionDao implements TelefonicaProductQuestionDao {
 
     private FlexibleSearchService flexibleSearchService;
 
