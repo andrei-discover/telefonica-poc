@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 Índice
+## Índice
 
 - [Requisitos Mínimos Para Setup](#-requisitos-mínimos-para-setup)
 - [Instalação e Configuração](#️-instalação-e-configuração)
@@ -20,7 +20,7 @@
 
 ---
 
-## 💻 Requisitos Mínimos Para Setup
+## Requisitos Mínimos Para Setup
 
 | Ferramenta | Versão |
 |---|---|
@@ -33,7 +33,7 @@
 
 ---
 
-## 🛠️ Instalação e Configuração
+## Instalação e Configuração
 
 ### 1. Clonar o repositório na sua pasta desejada, nesse caso será o root no linux
 ```bash
@@ -66,7 +66,7 @@ cd core-customize/hybris/bin/platform
 ant
 ```
 
-> ⚠️ Durante o processo do `ant`, pressione **ENTER** para confirmar
+> Durante o processo do `ant`, pressione **ENTER** para confirmar
 > o ambiente padrão de desenvolvimento.
 
 ### 5. Restaurar configurações customizadas
@@ -81,7 +81,7 @@ ant clean all
 ant initialize
 ```
 
-> ⚠️ O `ant initialize` já importa todos os dados necessários,
+> O `ant initialize` já importa todos os dados necessários,
 > incluindo grupos, usuários e produtos de exemplo.
 
 ### 7. Inicialização do servidor
@@ -130,7 +130,7 @@ Após o servidor iniciar, acesse:
 http://localhost:4200/
 ```
 
-> ℹ️ Aguarde até que a mensagem abaixo apareça no console antes de acessar:
+> Aguarde até que a mensagem abaixo apareça no console antes de acessar:
 > ```
 > ✔ Compiled successfully.
 > ```
@@ -159,7 +159,7 @@ http://localhost:4200/
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 ### Extensões customizadas
 
